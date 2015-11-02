@@ -5,8 +5,13 @@
 
     <ListView
         android:id="@+id/menu_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:dividerHeight="20dp"
+        android:drawSelectorOnTop="false"
+        android:fastScrollAlwaysVisible="false"
         android:longClickable="false">
 
     </ListView>
