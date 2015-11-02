@@ -15,4 +15,13 @@
         android:longClickable="false">
 
     </ListView>
+
+    <TextView
+        android:id="@+id/willkommenstextTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/willkommenstext"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 </RelativeLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="@string/benutzername_preferences_default"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:inputType="text"
+        android:key="@string/benutzername_preferences_key"
+        android:maxLength="20"
+        android:singleLine="true"
+        android:title="@string/benutzername_preferences_title" />
+
+</PreferenceScreen>

@@ -15,9 +15,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LiveStreamActivity" />
-        <activity android:name=".MediathekActivity" />
-        <activity android:name=".CreditsActivity"></activity>
+        <activity
+            android:name=".LiveStreamActivity"
+            android:label="@string/title_activity_live_stream"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MediathekActivity"
+            android:label="@string/title_activity_mediathek"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".CreditsActivity"
+            android:label="@string/title_activity_credtis"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.codematch.naoray.media_player_app.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
