@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, CreditsActivity.class);
                         break;
                     default:
-                        Toast.makeText(MainActivity.this, "An Error occured", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
                 }
                 if (intent != null) {
                     startActivity(intent);
