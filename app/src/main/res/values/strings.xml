@@ -8,6 +8,13 @@
     <string name="title_activity_credtis">Credits</string>
 
 
+    <!-- Strings related to Navigation -->
+
+    <string name="menu_item_1">Live Stream</string>
+    <string name="menu_item_2">Mediathek</string>
+    <string name="menu_item_3">Credits</string>
+
+
     <!-- Strings related to Settings -->
 
     <string name="benutzername_preferences_title">Benutzername</string>

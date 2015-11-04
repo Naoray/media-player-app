@@ -12,10 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] menuItems = {"Live Stream", "Mediathek", "Credits"};
+    private String[] menuItems = new String[3];
     private Intent intent;
 
     @Override
@@ -23,21 +24,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView menuView = (ListView) findViewById(R.id.menu_list);
-        ArrayAdapter<String> menuViewAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems);
+        menuItems[0] = getString(R.string.menu_item_1);
+        menuItems[1] = getString(R.string.menu_item_2);
+        menuItems[2] = getString(R.string.menu_item_3);
+
+        final ListView menuView = (ListView) findViewById(R.id.menu_list);
+        ArrayAdapter<String> menuViewAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItems);
         menuView.setAdapter(menuViewAdapter);
         menuView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (id == 0) {
-                    intent = new Intent(MainActivity.this, LiveStreamActivity.class);
-                } else if (id == 1) {
-                    intent = new Intent(MainActivity.this, MediathekActivity.class);
-                } else if (id == 2) {
-                    intent = new Intent(MainActivity.this, CreditsActivity.class);
+                switch (menuItems[(int) id]) {
+                    case "Live Stream":
+                        intent = new Intent(MainActivity.this, LiveStreamActivity.class);
+                        break;
+                    case "Mediathek":
+                        intent = new Intent(MainActivity.this, MediathekActivity.class);
+                        break;
+                    case "Credits":
+                        intent = new Intent(MainActivity.this, CreditsActivity.class);
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this, "An Error occured", Toast.LENGTH_LONG).show();
                 }
-                startActivity(intent);
-                //Toast.makeText(MainActivity.this, parent + " - " + id, Toast.LENGTH_SHORT).show();
+                if (intent != null) {
+                    startActivity(intent);
+                }
             }
         });
 

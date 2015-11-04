@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context=".MainActivity">
+    android:layout_height="match_parent"
+    android:background="#e7e2e2"
+    tools:context=".MainActivity">
 
     <ListView
         android:id="@+id/menu_list"
@@ -12,8 +14,9 @@
         android:dividerHeight="20dp"
         android:drawSelectorOnTop="false"
         android:fastScrollAlwaysVisible="false"
-        android:longClickable="false">
-
+        android:longClickable="false"
+        android:padding="16dp"
+        android:textFilterEnabled="false">
     </ListView>
 
     <TextView
