@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">media-player-app</string>
-    <string name="main_settings">Einstellungen</string>
     <string name="willkommenstext">Guten Tag</string>
     <string name="wunschtext">Wir wünschen Ihnen viel Spaß mit der App!</string>
     <string name="title_activity_live_stream">Live Stream</string>
@@ -17,10 +16,15 @@
 
     <!-- Strings related to Settings -->
 
+    <string name="main_settings">Einstellungen</string>
+    <string name="settings_hilfe">Hilfe</string>
+
     <string name="benutzername_preferences_title">Benutzername</string>
     <string name="benutzername_preferences_key">Benutzername Key</string>
     <string name="benutzername_preferences_default">Nico Weber</string>
     <string name="title_activity_settings">Einstellungen</string>
+    <string name="BenutzernamenÄnderungsBenachrichtigung">Einstellung %1$s wurde geändert</string>
+    <string name="LeererBenutzernameEingegebenBenachrichtigung">Der Benutzername darf nicht leer sein!!</string>
 
 
 </resources>
