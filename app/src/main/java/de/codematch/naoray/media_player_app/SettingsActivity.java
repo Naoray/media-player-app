@@ -60,8 +60,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Pre
     @Override
     public boolean onPreferenceChange(Preference preference, Object object) {
         if (preference == benutzernamePreference) {
-            Toast.makeText(this, "Einstellung Benutzername wurde geändert!", Toast.LENGTH_SHORT).show();
-            return true;
+            if (object.toString().isEmpty()) {
+                Toast.makeText(this, getString(R.string.LeererBenutzernameEingegebenBenachrichtigung), Toast.LENGTH_LONG).show();
+                return false;
+            } else {
+                Toast.makeText(this, String.format(getString(R.string.BenutzernamenÄnderungsBenachrichtigung), getString(R.string.benutzername_preferences_title)), Toast.LENGTH_LONG).show();
+                return true;
+            }
         } else {
             return false;
         }

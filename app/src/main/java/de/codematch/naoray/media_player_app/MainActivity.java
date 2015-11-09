@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] menuItems = new String[3];
+    private String[] menuItems = new String[2];
     private Intent intent;
 
     @Override
@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         menuItems[0] = getString(R.string.menu_item_1);
         menuItems[1] = getString(R.string.menu_item_2);
-        menuItems[2] = getString(R.string.menu_item_3);
 
         final ListView menuView = (ListView) findViewById(R.id.menu_list);
         ArrayAdapter<String> menuViewAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItems);
@@ -40,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case "Mediathek":
                         intent = new Intent(MainActivity.this, MediathekActivity.class);
-                        break;
-                    case "Credits":
-                        intent = new Intent(MainActivity.this, CreditsActivity.class);
                         break;
                     default:
                         Toast.makeText(MainActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
@@ -82,8 +78,16 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+        switch (id) {
+
+            case R.id.settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+            case R.id.credits:
+                startActivity(new Intent(this, CreditsActivity.class));
+                break;
+            case R.id.hilfe:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
