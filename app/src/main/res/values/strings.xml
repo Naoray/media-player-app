@@ -1,11 +1,14 @@
 <resources>
-    <string name="app_name">media-player-app</string>
+    <string name="app_name">Regiotainment MediaPlayer</string>
     <string name="willkommenstext">Guten Tag</string>
     <string name="wunschtext">Wir wünschen Ihnen viel Spaß mit der App!</string>
+    <string name="title_activity_main_menue">Hauptmenü</string>
     <string name="title_activity_live_stream">Live Stream</string>
     <string name="title_activity_mediathek">Mediathek</string>
     <string name="title_activity_credtis">Credits</string>
 
+    <!-- Strings related to MainMenueActivity -->
+    <string name="app_closing_warning">Noch EINMAL drücken zum Verlassen der App</string>
 
     <!-- Strings related to Navigation -->
 
@@ -16,8 +19,9 @@
 
     <!-- Strings related to Settings -->
 
-    <string name="main_settings">Einstellungen</string>
-    <string name="settings_hilfe">Hilfe</string>
+    <string name="menu_item_ausloggen">Ausloggen</string>
+    <string name="menu_item_einstellungen">Einstellungen</string>
+    <string name="menu_item_hilfe">Hilfe</string>
 
     <string name="benutzername_preferences_title">Benutzername</string>
     <string name="benutzername_preferences_key">Benutzername Key</string>
@@ -25,6 +29,19 @@
     <string name="title_activity_settings">Einstellungen</string>
     <string name="BenutzernamenÄnderungsBenachrichtigung">Einstellung %1$s wurde geändert</string>
     <string name="LeererBenutzernameEingegebenBenachrichtigung">Der Benutzername darf nicht leer sein!!</string>
+    <string name="title_activity_login">Einloggen</string>
 
+    <!-- Strings related to login -->
+
+    <string name="login">Einloggen</string>
+    <string name="hint_email">E-Mail</string>
+    <string name="hint_passwort">Passwort</string>
+    <string name="login_button_text">Einloggen</string>
+
+    <string name="warnung_falsche_email">Sie müssen eine gültige E-Mail-Adresse eingeben!</string>
+    <string name="warnung_unbekannte_email">Es gibt keinen Account zu dieser E-Mail-Adresse!</string>
+    <string name="warnung_fehlendes_passwort">Sie müssen ein Passwort eingeben!</string>
+    <string name="warnung_falsches_passwort">Das eingegebene Passwort ist falsch</string>
+    <string name="meldung_pruefung_erfolgt">Prüfung ist erfolgt</string>
 
 </resources>

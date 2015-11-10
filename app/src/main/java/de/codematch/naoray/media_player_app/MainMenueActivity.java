@@ -3,6 +3,7 @@ package de.codematch.naoray.media_player_app;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -14,8 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainMenueActivity extends AppCompatActivity {
 
+    boolean doubleBackToExitPressedOnce = false;
     private String[] menuItems = new String[2];
     private Intent intent;
 
@@ -35,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (menuItems[(int) id]) {
                     case "Live Stream":
-                        intent = new Intent(MainActivity.this, LiveStreamActivity.class);
+                        intent = new Intent(MainMenueActivity.this, LiveStreamActivity.class);
                         break;
                     case "Mediathek":
-                        intent = new Intent(MainActivity.this, MediathekActivity.class);
+                        intent = new Intent(MainMenueActivity.this, MediathekActivity.class);
                         break;
                     default:
-                        Toast.makeText(MainActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainMenueActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
                 }
                 if (intent != null) {
                     startActivity(intent);
@@ -80,16 +82,43 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (id) {
 
-            case R.id.settings:
+            case R.id.menu_item_ausloggen:
+                //Ruft eine neue Activity auf, löscht dabei den Back Stack und beendet die alte Activity komplett, damit man in der Login-Activity nicht durch Drücken auf "zurück" wieder in das Hauptmenü kommt
+                Intent intent = new Intent(this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);// clear back stack
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.menu_item_einstellungen:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
-            case R.id.credits:
+            case R.id.menu_item_credits:
                 startActivity(new Intent(this, CreditsActivity.class));
                 break;
-            case R.id.hilfe:
+            case R.id.menu_item_hilfe:
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //Drückt man in dieser Activity 2x auf den Zurück-Pfeil in der Navigationsleiste(unten), so wird die App verlassen.
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            //Die ursprüngliche Methode beendet die App
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, getString(R.string.app_closing_warning), Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }
