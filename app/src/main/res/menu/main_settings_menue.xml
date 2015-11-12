@@ -2,20 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_item_ausloggen"
-        android:orderInCategory="1"
-        android:title="@string/menu_item_ausloggen" />
-
-    <item
         android:id="@+id/menu_item_einstellungen"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         android:title="@string/menu_item_einstellungen" />
     <item
         android:id="@+id/menu_item_credits"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         android:title="@string/menu_item_3" />
     <item
         android:id="@+id/menu_item_hilfe"
-        android:orderInCategory="4"
+        android:orderInCategory="3"
         android:title="@string/menu_item_hilfe" />
+    <item
+        android:id="@+id/menu_item_ausloggen"
+        android:orderInCategory="4"
+        android:title="@string/menu_item_ausloggen" />
 </menu>

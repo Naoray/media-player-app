@@ -43,8 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         email = email_field.getText().toString();
         passwort = passwort_field.getText().toString();
 
-
-        if (!email.contains("@")) {
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(LoginActivity.this, getString(R.string.warnung_falsche_email), Toast.LENGTH_SHORT).show();
             email_field.requestFocus();
             return false;
@@ -94,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() {
+
         startActivity(new Intent(this, MainMenueActivity.class));
     }
 }
