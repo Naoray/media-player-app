@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText email_field;
@@ -43,7 +46,11 @@ public class LoginActivity extends AppCompatActivity {
         email = email_field.getText().toString();
         passwort = passwort_field.getText().toString();
 
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        final String EMAIL_PATTERN = "[a-zA-Z0-9]+(?:(\\.|_)[A-Za-z0-9!#$%&'*+/=?^`{|}~-]+)*@(?!([a-zA-Z0-9]*\\.[a-zA-Z0-9]*\\.[a-zA-Z0-9]*\\.))(?:[A-Za-z0-9](?:[a-zA-Z0-9-]*[A-Za-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?";
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+
+        if (!matcher.matches()) {
             Toast.makeText(LoginActivity.this, getString(R.string.warnung_falsche_email), Toast.LENGTH_SHORT).show();
             email_field.requestFocus();
             return false;
