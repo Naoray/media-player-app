@@ -24,7 +24,7 @@ public class MainMenueActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_menue);
 
         menuItems[0] = getString(R.string.menu_item_1);
         menuItems[1] = getString(R.string.menu_item_2);
