@@ -22,10 +22,16 @@ public class LoginActivity extends AppCompatActivity {
     String[] gueltigeEmails = {"Nico@web.de", "Krishan@gmx.de"};
     String[] gueltigePasswoerter = {"admin1", "coadmin2"};
 
+    DatabaseManager db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // calling DatabaseManager to Init DB
+        db = new DatabaseManager(this);
+        db.addUserInfo("Nico@web.de", "admin1");
 
         email_field = (EditText) findViewById(R.id.login_email);
         passwort_field = (EditText) findViewById(R.id.login_passwort);
@@ -36,10 +42,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (checkEntries()) {
-                    loginCheck();
+                    verifyData();
                 }
             }
         });
+    }
+
+    public void verifyData() {
+        if (db.verifyPassword(email, passwort)) {
+            login();
+        }
     }
 
     public boolean checkEntries() {
