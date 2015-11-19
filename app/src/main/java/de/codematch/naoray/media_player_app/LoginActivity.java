@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (checkEntries()) {
+                    //Hier kommt die Serverabfrage rein -> E-Mail und Passwort Daten des Servers in lokale Datenbank schreiben
                     verifyData();
                 }
             }
@@ -49,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void verifyData() {
+        //Wenn Internetverbindung besteht dann direkt mit den Daten des Servers abgleichen
+        //Wenn keine INternetverbindung besteht Überprüfung mit der lokalen Datenbank
         if (db.verifyPassword(email, passwort)) {
             login();
         }

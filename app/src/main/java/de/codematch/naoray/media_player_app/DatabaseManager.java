@@ -26,7 +26,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Takes String Query -> work like normal SQL
-        db.execSQL("CREATE TABLE " + TABLE_USER + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + USERNAME + " TEXT, " + PASSWORD + " TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_USER + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + USERNAME + " TEXT, " + PASSWORD + " TEXT)");
     }
 
     @Override
@@ -44,7 +44,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     public Boolean verifyPassword(String username, String pw) {
-        Cursor query = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_USER + " WHERE " + USERNAME + " = ?", new String[]{String.valueOf(username)});
+        Cursor query = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_USER + " WHERE LOWER(" + USERNAME + ") = LOWER(?)", new String[]{String.valueOf(username)});
 
         if (query != null && query.getCount() > 0) {
             query.moveToFirst();
