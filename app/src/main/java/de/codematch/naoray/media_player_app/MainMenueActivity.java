@@ -20,6 +20,7 @@ public class MainMenueActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
     private String[] menuItems = new String[2];
     private Intent intent;
+    private SharedPreferences sPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class MainMenueActivity extends AppCompatActivity {
         // Die Einstellung wird zusammen mit den anderen App-Einstellungen in einer Default SharedPreferences-Datei gespeichert. Wenn der Nutzer eine Einstellung ändert, aktualisiert das System den zum angegebenen Schlüssel passenden Wert in der SharedPreferences-Datei.
         // Auf die SharedPreferences-Datei sollte nur lesend zugegriffen werden.Das Speichern übernimmt das Android System.
         // Liest die Default SharedPreferences-Datei ein und ließt den Wert, der vom passenden Key (Key-Value-Paare) referenziert wird aus
-        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String benutzernamePreferencesKey = getString(R.string.benutzername_preferences_key);
         String benutzernamePreferencesDefault = getString(R.string.benutzername_preferences_default);
         String aktuellerBenutzername = sPrefs.getString(benutzernamePreferencesKey, benutzernamePreferencesDefault);
@@ -84,7 +85,12 @@ public class MainMenueActivity extends AppCompatActivity {
 
             case R.id.menu_item_ausloggen:
                 //Ruft eine neue Activity auf, löscht dabei den Back Stack und beendet die alte Activity komplett, damit man in der Login-Activity nicht durch Drücken auf "zurück" wieder in das Hauptmenü kommt
-                Intent intent = new Intent(this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);// clear back stack
+                if (sPrefs.getBoolean("LoginState", false)) {
+                    SharedPreferences.Editor editor = sPrefs.edit();
+                    editor.putBoolean("LoginState", false);
+                    editor.apply();
+                }
+                Intent intent = new Intent(this, LoginActivityOriginal.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);// clear back stack
                 startActivity(intent);
                 finish();
                 break;
