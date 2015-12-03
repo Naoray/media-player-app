@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        RequestQueue queue = Volley.newRequestQueue(this);
+
 
         // calling DatabaseManager to Init DB
         db = new DatabaseManager(this);
