@@ -78,34 +78,6 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
-
-    public void loginCheck() {
-
-        Boolean email_ok = false;
-        Boolean passwort_ok = false;
-        int passwortIndex = 0;
-
-        for (int i = 0; i < gueltigeEmails.length; i++) {
-            if (email.equalsIgnoreCase(gueltigeEmails[i])) {
-                email_ok = true;
-                passwortIndex = i;
-                break;
-            }
-        }
-
-        if (email_ok) {
-            if (passwort.equals(gueltigePasswoerter[passwortIndex])) {
-                passwort_ok = true;
-            }
-        }
-
-        if (email_ok && passwort_ok) {
-            login();
-        } else {
-            handleError(email_ok, passwort_ok);
-        }
-    }
-
     public void handleError(Boolean email_ok, Boolean passwort_ok) {
         if (!email_ok) {
             Toast.makeText(LoginActivity.this, getString(R.string.warnung_unbekannte_email), Toast.LENGTH_SHORT).show();
@@ -115,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() {
-
         startActivity(new Intent(this, MainMenueActivity.class));
     }
 }

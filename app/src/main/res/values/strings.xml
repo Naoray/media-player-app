@@ -43,5 +43,20 @@
     <string name="warnung_fehlendes_passwort">Sie müssen ein Passwort eingeben!</string>
     <string name="warnung_falsches_passwort">Das eingegebene Passwort ist falsch</string>
     <string name="meldung_pruefung_erfolgt">Prüfung ist erfolgt</string>
+    <string name="title_activity_login_activity_originial">Login</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="error_invalid_email">Dieser Username ist ungültig</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">Dieses Passwort ist ungültig</string>
+    <string name="error_field_required">Dieses Feld ist erforderlich</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="stay_logged_in">Eingelogt bleiben</string>
 
 </resources>
