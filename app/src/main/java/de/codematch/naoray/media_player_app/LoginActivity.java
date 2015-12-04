@@ -7,19 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import java.util.Map;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -37,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     String[] gueltigeEmails = {"Nico@web.de", "Krishan@gmx.de"};
     String[] gueltigePasswoerter = {"admin1", "coadmin2"};
 
-    String url = "localhost";
 
 
 
@@ -47,14 +42,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        final EditText mTextView = (EditText) findViewById(R.id.login_email);
+
+
+
         // Volley-Code
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("name", "Droider");
+        params.put("Nico@web.de", "admin1");
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://www.google.com";
+        String url ="localhost";
 
-        LginRequester jsObjRequest = new LginRequester(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+        LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -74,21 +71,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        mTextView.setText("Response is: "+ response.substring(0,500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                mTextView.setText("That didn't work!");
-            }
-        });
+        // Request in die quee legen
+        queue.add(jsObjRequest);
 
+
+
+        // Volley Code Ende
         // calling DatabaseManager to Init DB
         db = new DatabaseManager(this);
         db.addUserInfo("Nico@web.de", "admin1");

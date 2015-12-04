@@ -23,20 +23,20 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
 
-public class LginRequester extends Request<JSONObject>{
+public class LoginRequester extends Request<JSONObject>{
 
     private Listener<JSONObject> listener;
     private Map<String, String> params;
 
-    public LginRequester(String url, Map<String, String> params,
-                         Listener<JSONObject> reponseListener, ErrorListener errorListener) {
+    public LoginRequester(String url, Map<String, String> params,
+                          Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
     }
 
-    public LginRequester (int method, String url, Map<String, String> params,
-                         Listener<JSONObject> reponseListener, ErrorListener errorListener) {
+    public LoginRequester(int method, String url, Map<String, String> params,
+                          Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
@@ -46,8 +46,7 @@ public class LginRequester extends Request<JSONObject>{
     protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
         return params;
     };
-
-    @Override
+     @Override
     protected void deliverResponse(JSONObject response) {
         listener.onResponse(response);
     }
