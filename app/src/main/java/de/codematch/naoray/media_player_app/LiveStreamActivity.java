@@ -1,9 +1,12 @@
 package de.codematch.naoray.media_player_app;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
@@ -20,6 +23,7 @@ public class LiveStreamActivity extends AppCompatActivity {
     String VideoURL = "http://regiotainment.mni.thm.de:3000/videostorage/playliststorage/5623ca95e6cc3b74106e1bba/mainpanel/streams.m3u8";
     //"http://regiotainment.mni.thm.de/MobileVideos/Regiotainment.mp4";
     //"http://www.androidbegin.com/tutorial/AndroidCommercial.3gp";
+    private SharedPreferences sPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,15 @@ public class LiveStreamActivity extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        //Preferences
+        sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String landscapePreferencesKey = getString(R.string.landscape_preferences_key);
+        Boolean landscapeDefaultValue = false;
+        Boolean landscape = sPrefs.getBoolean(landscapePreferencesKey, landscapeDefaultValue);
+        if (landscape) {
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }
 
         // Find your VideoView in your video_main.xml layout
         videoview = (VideoView) findViewById(R.id.VideoView);

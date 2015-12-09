@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Regiotainment MediaPlayer</string>
+    <string name="willkommenstext">Guten Tag</string>
+    <string name="wunschtext">Wir wünschen Ihnen viel Spaß mit der App!</string>
+    <string name="title_activity_main_menue">Hauptmenü</string>
+    <string name="title_activity_live_stream">Live Stream</string>
+    <string name="title_activity_mediathek">Mediathek</string>
+    <string name="title_activity_credtis">Credits</string>
+
+    <!-- Strings related to MainMenueActivity -->
+    <string name="app_closing_warning">Noch EINMAL drücken zum Verlassen der App</string>
+
+    <!-- Strings related to Navigation -->
+
+    <string name="menu_item_1">Live Stream</string>
+    <string name="menu_item_2">Mediathek</string>
+    <string name="menu_item_3">Credits</string>
+
+
+    <!-- Strings related to Settings -->
+
+    <string name="menu_item_ausloggen">Ausloggen</string>
+    <string name="menu_item_einstellungen">Einstellungen</string>
+    <string name="menu_item_hilfe">Hilfe</string>
+
+    <string name="benutzername_preferences_title">Benutzername</string>
+    <string name="benutzername_preferences_key">Benutzername Key</string>
+    <string name="benutzername_preferences_default">Nico Weber</string>
+    <string name="landscape_preferences_key">Landscape Key</string>
+    <string name="landscape_preferences_title">Videos im Querformat</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="BenutzernamenÄnderungsBenachrichtigung">Einstellung %1$s wurde geändert</string>
+    <string name="LeererBenutzernameEingegebenBenachrichtigung">Der Benutzername darf nicht leer sein!!</string>
+    <string name="title_activity_login">Einloggen</string>
+
+    <!-- Strings related to login -->
+
+    <string name="login">Einloggen</string>
+    <string name="hint_email">E-Mail</string>
+    <string name="hint_passwort">Passwort</string>
+    <string name="login_button_text">Einloggen</string>
+
+    <string name="warnung_falsche_email">Sie müssen eine gültige E-Mail-Adresse eingeben!</string>
+    <string name="warnung_unbekannte_email">Es gibt keinen Account zu dieser E-Mail-Adresse!</string>
+    <string name="warnung_fehlendes_passwort">Sie müssen ein Passwort eingeben!</string>
+    <string name="warnung_falsches_passwort">Das eingegebene Passwort ist falsch</string>
+    <string name="meldung_pruefung_erfolgt">Prüfung ist erfolgt</string>
+    <string name="title_activity_login_activity_originial">Login</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="error_invalid_email">Dieser Username ist ungültig!</string>
+    <string name="error_invalid_password">Das Passwort ist zu kurz!</string>
+    <string name="error_incorrect_password">Dieses Passwort ist ungültig!</string>
+    <string name="error_field_required">Dieses Feld ist erforderlich</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="stay_logged_in">Eingelogt bleiben</string>
+
+</resources>
