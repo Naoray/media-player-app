@@ -3,11 +3,21 @@ package de.codematch.naoray.media_player_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     String[] gueltigeEmails = {"Nico@web.de", "Krishan@gmx.de"};
     String[] gueltigePasswoerter = {"admin1", "coadmin2"};
 
+
+
+
     DatabaseManager db;
 
     @Override
@@ -29,6 +42,41 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+
+        // Volley-Code
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("Username", "Nico@web.de");
+        params.put("pw", "admin1");
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://naoray.pf-control.de/jsonresponse/index.php";
+
+        LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("Response: ", response.toString());
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+
+        // Request in die quee legen
+        queue.add(jsObjRequest);
+
+
+
+        // Volley Code Ende
         // calling DatabaseManager to Init DB
         db = new DatabaseManager(this);
         db.addUserInfo("Nico@web.de", "admin1");
