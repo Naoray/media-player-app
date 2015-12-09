@@ -13,7 +13,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
@@ -47,9 +46,10 @@ public class LoginActivity extends AppCompatActivity {
 
         // Volley-Code
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("Nico@web.de", "admin1");
+        params.put("Username", "Nico@web.de");
+        params.put("pw", "admin1");
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="localhost";
+        String url = "http://naoray.pf-control.de/jsonresponse/index.php";
 
         LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
