@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -20,7 +21,16 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -257,6 +267,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
 
         private final String mEmail;
         private final String mPassword;
+        private Boolean verified = false;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -267,14 +278,53 @@ public class LoginActivityOriginal extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+            //try {
+            // Simulate network access.
+            //Thread.sleep(2000);
+            // Volley-Code
+            HashMap<String, String> parameters = new HashMap<String, String>();
+            parameters.put("Username", "Nico@web.de");
+            parameters.put("pw", "admin1");
+            RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
+            String url = "http://naoray.pf-control.de/jsonresponse/index.php";
+
+
+            LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        Log.d("Response: ", response.toString());
+                        verified = response.getBoolean("response");
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError response) {
+                    Log.d("Response: ", response.toString());
+                }
+            });
+
+            // Request in die queue legen
+            queue.add(jsObjRequest);
+            // Volley Code Ende
+
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
+            //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
             try {
-                // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                return false;
-            }
 
-            return db.verifyPassword(mEmail, mPassword);
+            }
+            return verified;
+            //return db.verifyPassword(mEmail, mPassword);
             /*for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equalsIgnoreCase(mEmail)) {
