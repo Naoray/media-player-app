@@ -56,8 +56,8 @@ public class MainMenueActivity extends AppCompatActivity {
         // Auf die SharedPreferences-Datei sollte nur lesend zugegriffen werden.Das Speichern übernimmt das Android System.
         // Liest die Default SharedPreferences-Datei ein und ließt den Wert, der vom passenden Key (Key-Value-Paare) referenziert wird aus
         sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String benutzernamePreferencesKey = getString(R.string.benutzername_preferences_key);
-        String benutzernamePreferencesDefault = getString(R.string.benutzername_preferences_default);
+        String benutzernamePreferencesKey = getString(R.string.E_Mail_Address_preferences_key);
+        String benutzernamePreferencesDefault = "";
         String aktuellerBenutzername = sPrefs.getString(benutzernamePreferencesKey, benutzernamePreferencesDefault);
 
         String wunschtext = getString(R.string.wunschtext);
