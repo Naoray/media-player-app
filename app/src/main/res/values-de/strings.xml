@@ -31,25 +31,10 @@
     <string name="title_activity_settings">Einstellungen</string>
     <string name="BenutzernamenÄnderungsBenachrichtigung">Einstellung %1$s wurde geändert</string>
     <string name="LeererBenutzernameEingegebenBenachrichtigung">Der Benutzername darf nicht leer sein!!</string>
-    <string name="title_activity_login">Einloggen</string>
 
     <!-- Strings related to login -->
-
-    <string name="login">Einloggen</string>
-    <string name="hint_email">E-Mail</string>
-    <string name="hint_passwort">Passwort</string>
-    <string name="login_button_text">Einloggen</string>
-
-    <string name="warnung_falsche_email">Sie müssen eine gültige E-Mail-Adresse eingeben!</string>
-    <string name="warnung_unbekannte_email">Es gibt keinen Account zu dieser E-Mail-Adresse!</string>
-    <string name="warnung_fehlendes_passwort">Sie müssen ein Passwort eingeben!</string>
-    <string name="warnung_falsches_passwort">Das eingegebene Passwort ist falsch</string>
-    <string name="meldung_pruefung_erfolgt">Prüfung ist erfolgt</string>
-    <string name="title_activity_login_activity_originial">Login</string>
-
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_email">E-Mail</string>
+    <string name="prompt_password">Passwort</string>
     <string name="action_sign_in">Login</string>
     <string name="action_sign_in_short">Login</string>
     <string name="error_invalid_email">Dieser Username ist ungültig!</string>
@@ -59,6 +44,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="stay_logged_in">Eingelogt bleiben</string>
+    <string name="stay_logged_in">Eingeloggt bleiben</string>
 
 </resources>
