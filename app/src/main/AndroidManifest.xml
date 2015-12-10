@@ -3,6 +3,7 @@
     package="de.codematch.naoray.media_player_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -43,7 +44,7 @@
 
         <activity
             android:name=".MainMenueActivity"
-            android:label="@string/title_activity_main_menue"></activity>
+            android:label="@string/title_activity_main_menue" />
     </application>
 
 </manifest>
