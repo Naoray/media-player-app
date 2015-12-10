@@ -3,8 +3,10 @@ package de.codematch.naoray.media_player_app;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,8 +54,8 @@ public class LoginActivityOriginal extends AppCompatActivity {
     protected SharedPreferences spref;
     protected Set<String> emailAutocompleteList;
     protected SharedPreferences.Editor editor;
+    protected DatabaseManager db;
     CheckBox mKeepMeLoggedInCheckBox;
-    DatabaseManager db;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -77,7 +79,6 @@ public class LoginActivityOriginal extends AppCompatActivity {
 
         // calling DatabaseManager to Init DB
         db = new DatabaseManager(this);
-        db.addUserInfo("Nico@web.de", "admin1");
 
         mKeepMeLoggedInCheckBox = (CheckBox) findViewById(R.id.stay_logged);
         //restores the status of the keepmeloggedin checkbox
@@ -274,67 +275,63 @@ public class LoginActivityOriginal extends AppCompatActivity {
             mPassword = password;
         }
 
+        private Boolean checkInternetConnection() {
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+        }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            //try {
-            // Simulate network access.
-            //Thread.sleep(2000);
-            // Volley-Code
-            HashMap<String, String> parameters = new HashMap<String, String>();
-            parameters.put("Username", mEmail);
-            parameters.put("pw", mPassword);
-            RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
-            String url = "http://naoray.pf-control.de/jsonresponse/index.php";
+            if (checkInternetConnection()) {
+                // Volley-Code
+                HashMap<String, String> parameters = new HashMap<String, String>();
+                parameters.put("Username", mEmail);
+                parameters.put("pw", mPassword);
+                RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
+                String url = "http://naoray.pf-control.de/jsonresponse/index.php";
 
 
-            LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+                LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
 
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        Log.d("Response: ", response.toString());
-                        verified = response.getBoolean("response");
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.d("Response: ", response.toString());
+                            verified = response.getBoolean("response");
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
                     }
+                }, new Response.ErrorListener() {
 
-                }
-            }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError response) {
+                        Log.d("Response: ", response.toString());
+                    }
+                });
 
-                @Override
-                public void onErrorResponse(VolleyError response) {
-                    Log.d("Response: ", response.toString());
-                }
-            });
-
-            // Request in die queue legen
-            queue.add(jsObjRequest);
-            // Volley Code Ende
-
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
+                // Request in die queue legen
+                queue.add(jsObjRequest);
+                // Volley Code Ende
+            } else {
+                verified = db.verifyPassword(mEmail, mPassword);
+            }
             //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
 
             }
-            return verified;
-            //return db.verifyPassword(mEmail, mPassword);
-            /*for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equalsIgnoreCase(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
 
-            return false;*/
+            if (verified) {
+                db.handleUserInput(mEmail, mPassword);
+            }
+            return verified;
         }
 
         @Override
