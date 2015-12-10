@@ -4,10 +4,10 @@ package de.codematch.naoray.media_player_app;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -20,17 +20,17 @@ import android.widget.Toast;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatPreferenceActivity implements Preference.OnPreferenceChangeListener {
+public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private Preference benutzernamePreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+        //addPreferencesFromResource(R.xml.preferences);
+        getFragmentManager().beginTransaction().replace(android.R.id.content,
+                new PrefsFragment()).commit();
         setupActionBar();
-        benutzernamePreference = findPreference(getString(R.string.benutzername_preferences_key));
-        benutzernamePreference.setOnPreferenceChangeListener(this);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Pre
         return super.onMenuItemSelected(featureId, item);
     }
 
-    //Mit dem Rückgabewert "true" wird die Einstellung übernommen, mit "false" wird sie verworfen
+/*    //Mit dem Rückgabewert "true" wird die Einstellung übernommen, mit "false" wird sie verworfen
     @Override
     public boolean onPreferenceChange(Preference preference, Object object) {
         if (preference == benutzernamePreference) {
@@ -72,6 +72,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Pre
         } else {
             return false;
         }
+    }*/
+
+    public static class PrefsFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            // Load the preferences from an XML resource
+            addPreferencesFromResource(R.xml.preferences);
+        }
+
     }
 }
 

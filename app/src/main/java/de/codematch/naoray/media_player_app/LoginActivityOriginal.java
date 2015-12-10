@@ -80,6 +80,10 @@ public class LoginActivityOriginal extends AppCompatActivity {
         // calling DatabaseManager to Init DB
         db = new DatabaseManager(this);
 
+        mEmailView.setText(spref.getString(getString(R.string.E_Mail_Address_preferences_key), ""));
+        if (!mEmailView.getText().toString().equals("")) {
+            mPasswordView.requestFocus();
+        }
         mKeepMeLoggedInCheckBox = (CheckBox) findViewById(R.id.stay_logged);
         //restores the status of the keepmeloggedin checkbox
         if (spref.getBoolean("KeepMeLoggedIn", false)) {
@@ -347,6 +351,9 @@ public class LoginActivityOriginal extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
+                editor.putString(getString(R.string.E_Mail_Address_preferences_key), mEmail);
+                editor.apply();
+
                 finish();
                 this.addEmailToAutocompleteList();
                 if (keepMeLoggedInChecked) {

@@ -27,9 +27,7 @@
     <string name="menu_item_einstellungen">Einstellungen</string>
     <string name="menu_item_hilfe">Hilfe</string>
 
-    <string name="benutzername_preferences_title">Benutzername</string>
-    <string name="benutzername_preferences_key">Benutzername Key</string>
-    <string name="benutzername_preferences_default">Nico Weber</string>
+    <string name="E_Mail_Address_preferences_key">E-Mail Key</string>
     <string name="landscape_preferences_key">Landscape Key</string>
     <string name="landscape_preferences_title">Videos nur im Querformat</string>
     <string name="title_activity_settings">Einstellungen</string>
