@@ -50,9 +50,9 @@ public class LiveStreamActivity extends AppCompatActivity {
         // Create a progressbar
         pDialog = new ProgressDialog(LiveStreamActivity.this);
         // Set progressbar title
-        pDialog.setTitle("Android Video Streaming Tutorial");
+        pDialog.setTitle(getString(R.string.title_activity_live_stream));
         // Set progressbar message
-        pDialog.setMessage("Video is Buffering...");
+        pDialog.setMessage(getString(R.string.buffer_message));
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         // Show progressbar

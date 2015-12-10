@@ -1,4 +1,5 @@
 <resources>
+    <!-- Strings related to Main menu -->
     <string name="app_name">Regiotainment MediaPlayer</string>
     <string name="willkommenstext">Guten Tag</string>
     <string name="wunschtext">Wir wünschen Ihnen viel Spaß mit der App!</string>
@@ -16,6 +17,9 @@
     <string name="menu_item_2">Mediathek</string>
     <string name="menu_item_3">Credits</string>
 
+    <!-- Strings related to LiveStream -->
+    <string name="buffer_message">Stream puffert...</string>
+
 
     <!-- Strings related to Settings -->
 
@@ -27,7 +31,7 @@
     <string name="benutzername_preferences_key">Benutzername Key</string>
     <string name="benutzername_preferences_default">Nico Weber</string>
     <string name="landscape_preferences_key">Landscape Key</string>
-    <string name="landscape_preferences_title">Videos im Querformat</string>
+    <string name="landscape_preferences_title">Videos nur im Querformat</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="BenutzernamenÄnderungsBenachrichtigung">Einstellung %1$s wurde geändert</string>
     <string name="LeererBenutzernameEingegebenBenachrichtigung">Der Benutzername darf nicht leer sein!!</string>
@@ -37,8 +41,7 @@
     <string name="prompt_password">Passwort</string>
     <string name="action_sign_in">Login</string>
     <string name="action_sign_in_short">Login</string>
-    <string name="error_invalid_email">Dieser Username ist ungültig!</string>
-    <string name="error_invalid_password">Das Passwort ist zu kurz!</string>
+    <string name="error_invalid_email">Diese E-Mail Adresse ist ungültig!</string>
     <string name="error_incorrect_password">Dieses Passwort ist ungültig!</string>
     <string name="error_field_required">Dieses Feld ist erforderlich</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
