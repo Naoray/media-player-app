@@ -274,6 +274,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
             mPassword = password;
         }
 
+
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
