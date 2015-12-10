@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // Database Settings
@@ -45,6 +46,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
         } else {
             addUserInfo();
+        }
+
+        // for debugging purposes
+        query = getReadableDatabase().query(TABLE_USER, null, null, null, null, null, null);
+        while (query.moveToNext()) {
+            Log.d("Ausgabe", query.getString(1) + " " + query.getString(2));
         }
     }
 

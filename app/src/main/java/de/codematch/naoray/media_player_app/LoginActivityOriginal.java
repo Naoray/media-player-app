@@ -275,19 +275,21 @@ public class LoginActivityOriginal extends AppCompatActivity {
             mPassword = password;
         }
 
+        /**
+         * @return true if internet connection exists
+         */
         private Boolean checkInternetConnection() {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
             return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
+            // if internetConnection exists -> communicate with server + update local database if necessary (new User or new Password)
             if (checkInternetConnection()) {
                 // Volley-Code
-                HashMap<String, String> parameters = new HashMap<String, String>();
+                HashMap<String, String> parameters = new HashMap<>();
                 parameters.put("Username", mEmail);
                 parameters.put("pw", mPassword);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
@@ -318,19 +320,25 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 // Request in die queue legen
                 queue.add(jsObjRequest);
                 // Volley Code Ende
+                //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (verified) {
+                    db.handleUserInput(mEmail, mPassword);
+                }
             } else {
                 verified = db.verifyPassword(mEmail, mPassword);
+                // This makes sure that the loading animation is shown for a certain time
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
 
-            }
-
-            if (verified) {
-                db.handleUserInput(mEmail, mPassword);
-            }
             return verified;
         }
 
