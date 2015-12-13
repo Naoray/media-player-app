@@ -73,6 +73,7 @@ public class LiveStreamActivity extends AppCompatActivity {
                     // Fragen ob WLAN aktiviert werden soll
                     // wenn ja
                     wifiManager.setWifiEnabled(true);
+                    startStream();
                 } else {
                     startStream();
                 }
