@@ -1,10 +1,15 @@
 package de.codematch.naoray.media_player_app;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +17,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.VideoView;
+import android.util.Log;
 
 public class LiveStreamActivity extends AppCompatActivity {
 
@@ -43,7 +49,41 @@ public class LiveStreamActivity extends AppCompatActivity {
         if (landscape) {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
+        Log.d("test", "test");
+        //WLAN-Check
+        sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String WLANPreferencesKey = getString(R.string.wlan_preferences_key);
+        Boolean WLANDefaultValue = false;
+        Boolean wlancheck = sPrefs.getBoolean(WLANPreferencesKey, WLANDefaultValue);
 
+        if (wlancheck) {
+            ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo wlan = findWlan(connManager);
+            if (wlan == null) {
+                // kein WLAN möglich
+                Log.d("WLAN", "geht nicht");
+
+            } else {
+                // WLAN möglich
+                Log.d("WLAN", "möglich");
+
+               WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                if(!wifiManager.isWifiEnabled())
+                {
+                    // Fragen ob WLAN aktiviert werden soll
+                    // wenn ja
+                    wifiManager.setWifiEnabled(true);
+                } else {
+                    startStream();
+                }
+            }
+
+        } else {
+            startStream();
+        }
+    }
+
+        public void startStream(){
         // Find your VideoView in your video_main.xml layout
         videoview = (VideoView) findViewById(R.id.VideoView);
         // Execute StreamVideo AsyncTask
@@ -82,6 +122,18 @@ public class LiveStreamActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public NetworkInfo findWlan(ConnectivityManager connManager)
+    {
+        Network[] networks = connManager.getAllNetworks();
+        NetworkInfo networkInfo;
+        for (Network a : networks) {
+            networkInfo = connManager.getNetworkInfo(a);
+            if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                return networkInfo;
+            }
+        }
+        return null;
     }
 
     //Notification- und Navigation-Leiste werden ausgeblendet. Die Activity geht somit quasi in einen Vollbild-Modus

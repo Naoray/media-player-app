@@ -6,4 +6,9 @@
         android:icon="@mipmap/ic_stay_current_landscape_black_24dp"
         android:key="@string/landscape_preferences_key"
         android:title="@string/landscape_preferences_title" />
+    <SwitchPreference
+        android:disableDependentsState="false"
+        android:icon="@drawable/ic_network_wifi_black_24dp"
+        android:key="@string/wlan_preferences_key"
+        android:title="@string/wlan_preferences_title" />
 </PreferenceScreen>
