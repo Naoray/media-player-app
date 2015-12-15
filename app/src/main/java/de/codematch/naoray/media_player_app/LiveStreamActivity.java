@@ -30,6 +30,7 @@ public class LiveStreamActivity extends AppCompatActivity {
     // Declare variables
     ProgressDialog pDialog;
     WifiManager wifiManager;
+    ConnectivityManager connManager;
     VideoView videoview;
     // Insert your Video URL
     String VideoURL = "http://regiotainment.mni.thm.de:3000/videostorage/playliststorage/5623ca95e6cc3b74106e1bba/mainpanel/streams.m3u8";
@@ -63,13 +64,18 @@ public class LiveStreamActivity extends AppCompatActivity {
         Boolean wlancheck = sPrefs.getBoolean(WLANPreferencesKey, WLANDefaultValue);
 
         if (wlancheck) {
-            ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             if (!wifiManager.isWifiEnabled()) {
                 // Fragen ob WLAN aktiviert werden soll
                 DialogFragment newFragment = new WLANactivateDialogFragment();
                 newFragment.show(getFragmentManager(), "WLAN");
             }
+        } else {
+            startStream();
+        }
+    }
+        public void checkWLANConnection(){
             NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
             if (activeNetwork != null) { // connected to the internet
                 if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
@@ -93,10 +99,9 @@ public class LiveStreamActivity extends AppCompatActivity {
 
                 }
             }
-        } else {
-            startStream();
+
         }
-    }
+
 
 
 
@@ -158,6 +163,8 @@ public class LiveStreamActivity extends AppCompatActivity {
     }
     public void activateWLAN(){
         wifiManager.setWifiEnabled(true);
+        checkWLANConnection();
+
     }
 
 
