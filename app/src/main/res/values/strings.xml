@@ -48,4 +48,10 @@
         completions."</string>
     <string name="stay_logged_in">Keep me logged in</string>
 
+    <!-- Strings related to Dialogs -->
+    <string name="enableWLAN">Enable WLAN</string>
+    <string name="cancel">Cancel</string>
+    <string name="activateWlanMessage">A WLAN network is available. Activate WLAN on your Device?</string>
+    <string name="noWlan">No WLAN is avaiable</string>
+
 </resources>

@@ -51,4 +51,10 @@
     </string>
     <string name="stay_logged_in">Eingeloggt bleiben</string>
 
+    <!-- Strings related to Dialogs -->
+    <string name="enableWLAN">WLAN aktivieren</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="activateWlanMessage">WLAN Netzwerk erreichbar. WLAN am GErät aktivieren?</string>
+    <string name="noWlan">Kein WLAN verfügbar</string>
+
 </resources>

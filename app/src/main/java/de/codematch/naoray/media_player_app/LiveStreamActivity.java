@@ -1,7 +1,11 @@
 package de.codematch.naoray.media_player_app;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
@@ -17,6 +21,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.VideoView;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 public class LiveStreamActivity extends AppCompatActivity {
@@ -24,6 +29,7 @@ public class LiveStreamActivity extends AppCompatActivity {
 
     // Declare variables
     ProgressDialog pDialog;
+    WifiManager wifiManager;
     VideoView videoview;
     // Insert your Video URL
     String VideoURL = "http://regiotainment.mni.thm.de:3000/videostorage/playliststorage/5623ca95e6cc3b74106e1bba/mainpanel/streams.m3u8";
@@ -50,6 +56,7 @@ public class LiveStreamActivity extends AppCompatActivity {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
         Log.d("test", "test");
+
         //WLAN-Check
         sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String WLANPreferencesKey = getString(R.string.wlan_preferences_key);
@@ -59,21 +66,36 @@ public class LiveStreamActivity extends AppCompatActivity {
         if (wlancheck) {
             ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo wlan = findWlan(connManager);
+
             if (wlan == null) {
-                // kein WLAN möglich
+                // no WLAN available
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.noWlan)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finish();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
                 Log.d("WLAN", "geht nicht");
 
             } else {
-                // WLAN möglich
+
+                // WLAN available
                 Log.d("WLAN", "möglich");
 
-               WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 if(!wifiManager.isWifiEnabled())
                 {
                     // Fragen ob WLAN aktiviert werden soll
-                    // wenn ja
-                    wifiManager.setWifiEnabled(true);
-                    startStream();
+                    DialogFragment newFragment = new WLANactivateDialogFragment();
+                    newFragment.show(getFragmentManager(),"WLAN");
+
+
+
+
                 } else {
                     startStream();
                 }
@@ -82,7 +104,9 @@ public class LiveStreamActivity extends AppCompatActivity {
         } else {
             startStream();
         }
+
     }
+
 
         public void startStream(){
         // Find your VideoView in your video_main.xml layout
@@ -136,6 +160,12 @@ public class LiveStreamActivity extends AppCompatActivity {
         }
         return null;
     }
+    public void activateWLAN(){
+        wifiManager.setWifiEnabled(true);
+        startStream();
+    }
+
+
 
     //Notification- und Navigation-Leiste werden ausgeblendet. Die Activity geht somit quasi in einen Vollbild-Modus
     //Wischt der User aus Notification- bzw. Navigation-Leiste, so werden diese für einen kurzen Moment wieder eingeblendet
