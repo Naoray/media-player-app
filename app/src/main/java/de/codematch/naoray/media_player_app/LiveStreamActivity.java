@@ -55,7 +55,6 @@ public class LiveStreamActivity extends AppCompatActivity {
         if (landscape) {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
-        Log.d("test", "test");
 
         //WLAN-Check
         sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -65,47 +64,42 @@ public class LiveStreamActivity extends AppCompatActivity {
 
         if (wlancheck) {
             ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo wlan = findWlan(connManager);
-
-            if (wlan == null) {
-                // no WLAN available
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(R.string.noWlan)
-                        .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                finish();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-                Log.d("WLAN", "geht nicht");
-
-            } else {
-
-                // WLAN available
-                Log.d("WLAN", "möglich");
-
-                wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                if(!wifiManager.isWifiEnabled())
-                {
-                    // Fragen ob WLAN aktiviert werden soll
-                    DialogFragment newFragment = new WLANactivateDialogFragment();
-                    newFragment.show(getFragmentManager(),"WLAN");
-
-
-
-
-                } else {
+            wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (!wifiManager.isWifiEnabled()) {
+                // Fragen ob WLAN aktiviert werden soll
+                DialogFragment newFragment = new WLANactivateDialogFragment();
+                newFragment.show(getFragmentManager(), "WLAN");
+            }
+            NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+            if (activeNetwork != null) { // connected to the internet
+                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                    // connected to wifi
                     startStream();
+
+                } else  {
+                    // no WLAN available
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage(R.string.noWlan)
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    finish();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+
+
                 }
             }
-
-        } else {
-            startStream();
         }
-
     }
+
+
+
+
+
 
 
         public void startStream(){
@@ -149,8 +143,8 @@ public class LiveStreamActivity extends AppCompatActivity {
 
     }
     public NetworkInfo findWlan(ConnectivityManager connManager)
-    {
-        Network[] networks = connManager.getAllNetworks();
+        {
+            Network[] networks = connManager.getAllNetworks();
         NetworkInfo networkInfo;
         for (Network a : networks) {
             networkInfo = connManager.getNetworkInfo(a);
@@ -162,7 +156,6 @@ public class LiveStreamActivity extends AppCompatActivity {
     }
     public void activateWLAN(){
         wifiManager.setWifiEnabled(true);
-        startStream();
     }
 
 
