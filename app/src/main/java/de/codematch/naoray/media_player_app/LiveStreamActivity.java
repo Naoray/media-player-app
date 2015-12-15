@@ -93,6 +93,8 @@ public class LiveStreamActivity extends AppCompatActivity {
 
                 }
             }
+        } else {
+            startStream();
         }
     }
 
