@@ -31,6 +31,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,6 +43,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * A login screen that offers login via email/password.
@@ -295,9 +307,9 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 // Volley-Code
                 HashMap<String, String> parameters = new HashMap<>();
                 parameters.put("Username", mEmail);
-                parameters.put("pw", mPassword);
+                parameters.put("pw", encrypt(mPassword)); //mPassword
                 RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
-                String url = "http://naoray.pf-control.de/jsonresponse/index.php";
+                String url = "http://192.168.1.14/test.php"; //http://naoray.pf-control.de/jsonresponse/index.php
 
 
                 LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
@@ -387,6 +399,36 @@ public class LoginActivityOriginal extends AppCompatActivity {
             SharedPreferences.Editor editor = spref.edit();
             editor.putStringSet("emailAutocompleteList", newList);
             editor.apply();
+        }
+
+        //Enrypt Strings with AES
+        protected String encrypt(String text)
+        {
+            try {
+                Key key = new SecretKeySpec( "THMWKB15AAAAAAAA".getBytes("ISO-8859-1"), "AES" ); //passwort: THMWKB15AAAAAAAA
+                //String iv = "ABCDEFGHIJKLMNOP"; //Initialisierungsvektor
+                //IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes("ISO-8859-1"));
+
+                Cipher cipher = Cipher.getInstance( "AES" );
+                cipher.init( Cipher.ENCRYPT_MODE, key);
+                byte[] encrypted = cipher.doFinal( text.getBytes("ISO-8859-1"));
+                text = new String(encrypted, "ISO-8859-1");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            }
+
+            return text;
+
         }
     }
 }
