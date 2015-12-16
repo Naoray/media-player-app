@@ -148,6 +148,7 @@ public class LiveStreamActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         videoview.requestFocus();
         videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             // Close the progress bar and play the video
