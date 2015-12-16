@@ -269,6 +269,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+        public boolean responsebool = false;
 
         private final String mEmail;
         private final String mPassword;
@@ -306,6 +307,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             Log.d("Response: ", response.toString());
+                            responsebool = true;
                             verified = response.getBoolean("response");
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -326,7 +328,14 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 // Volley Code Ende
                 //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
                 try {
-                    Thread.sleep(2000);
+                    for (int i = 0; i<30;i++){
+                        if (responsebool){
+                            break;
+                        }
+                        Thread.sleep(100);
+
+                    }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
