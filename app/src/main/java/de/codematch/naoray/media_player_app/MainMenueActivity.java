@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,8 +36,10 @@ public class MainMenueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menue);
 
+        sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         //Karten erstellen
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
         cards.add(new Card("Hauptprogramm", "Regiotainment", R.drawable.test, Color.parseColor("#FF4081")));
         cards.add(new Card("Programm 2", "Beschreibung 2", Color.parseColor("#1976D2")));
         cards.add(new Card("Programm 3", "Beschreibung 3", Color.parseColor("#FF4081")));
@@ -78,7 +81,7 @@ public class MainMenueActivity extends AppCompatActivity {
         // Die Einstellung wird zusammen mit den anderen App-Einstellungen in einer Default SharedPreferences-Datei gespeichert. Wenn der Nutzer eine Einstellung ändert, aktualisiert das System den zum angegebenen Schlüssel passenden Wert in der SharedPreferences-Datei.
         // Auf die SharedPreferences-Datei sollte nur lesend zugegriffen werden.Das Speichern übernimmt das Android System.
         // Liest die Default SharedPreferences-Datei ein und ließt den Wert, der vom passenden Key (Key-Value-Paare) referenziert wird aus
-        sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         String benutzernamePreferencesKey = getString(R.string.E_Mail_Address_preferences_key);
         String benutzernamePreferencesDefault = "";
         String aktuellerBenutzername = sPrefs.getString(benutzernamePreferencesKey, benutzernamePreferencesDefault);

@@ -67,6 +67,8 @@ public class LoginActivityOriginal extends AppCompatActivity {
     private View mLoginFormView;
     private Boolean keepMeLoggedInChecked = false;
 
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
-
+        context = getApplicationContext();
         this.getAppPreferences();
 
         // calling DatabaseManager to Init DB
@@ -305,8 +307,13 @@ public class LoginActivityOriginal extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.d("ThreadVolley", Thread.currentThread().toString());
                             Log.d("Response: ", response.toString());
                             verified = response.getBoolean("response");
+                            if (verified) {
+                                db.handleUserInput(mEmail, mPassword);
+                            }
+                            handleResponse();
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
@@ -325,30 +332,56 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 queue.add(jsObjRequest);
                 // Volley Code Ende
                 //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
-                try {
+                /*try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
-                if (verified) {
-                    db.handleUserInput(mEmail, mPassword);
-                }
+                }*/
             } else {
+                Log.d("ThreadOffline", Thread.currentThread().toString());
                 verified = db.verifyPassword(mEmail, mPassword);
+                handleResponse();
                 // This makes sure that the loading animation is shown for a certain time
-                try {
+                /*try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
 
-            return verified;
+            return false;
+        }
+
+        private void handleResponse() {
+            mAuthTask = null;
+
+            if (verified) {
+                editor.putString(getString(R.string.E_Mail_Address_preferences_key), mEmail);
+                editor.apply();
+
+                finish();
+                this.addEmailToAutocompleteList();
+                if (keepMeLoggedInChecked) {
+                    Log.d("loginIf", "Test");
+                    editor.putBoolean("LoginState", true);
+                    editor.apply();
+                }
+                login();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+            try {
+                showProgress(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+            /*mAuthTask = null;
 
             if (success) {
                 editor.putString(getString(R.string.E_Mail_Address_preferences_key), mEmail);
@@ -365,7 +398,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
-            showProgress(false);
+            showProgress(false);*/
         }
 
         @Override
