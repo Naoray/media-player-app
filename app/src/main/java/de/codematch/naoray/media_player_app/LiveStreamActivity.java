@@ -72,35 +72,44 @@ public class LiveStreamActivity extends AppCompatActivity {
                 newFragment.show(getFragmentManager(), "WLAN");
             }
         } else {
-            startStream();
+            if(checkWLANConnection()) {
+                startStream();
+            } else {
+                noWLAN();
+            }
         }
     }
-        public void checkWLANConnection(){
+        public boolean checkWLANConnection() {
             NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
             if (activeNetwork != null) { // connected to the internet
                 if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                     // connected to wifi
-                    startStream();
-
-                } else  {
-                    // no WLAN available
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage(R.string.noWlan)
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    finish();
-                                }
-                            });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-
+                    return true;
 
 
                 }
             }
-
+            return false;
         }
+                    // no WLAN available
+        public void noWLAN(){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.noWlan)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+
+
+                }
+
+
+
 
 
 
@@ -149,6 +158,7 @@ public class LiveStreamActivity extends AppCompatActivity {
         });
 
     }
+    // not in use
     public NetworkInfo findWlan(ConnectivityManager connManager)
         {
             Network[] networks = connManager.getAllNetworks();
@@ -161,10 +171,24 @@ public class LiveStreamActivity extends AppCompatActivity {
         }
         return null;
     }
-    public void activateWLAN(){
+    public void activateWLAN() {
         wifiManager.setWifiEnabled(true);
-        checkWLANConnection();
+        int i = 0;
+        while (i < 6) {
+            if (checkWLANConnection()) {
+                startStream();
+                return;
+            } else {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
 
+                }
+            }
+
+
+        }
+        noWLAN();
     }
 
 
