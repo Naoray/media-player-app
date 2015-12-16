@@ -72,11 +72,7 @@ public class LiveStreamActivity extends AppCompatActivity {
                 newFragment.show(getFragmentManager(), "WLAN");
             }
         } else {
-            if(checkWLANConnection()) {
-                startStream();
-            } else {
-                noWLAN();
-            }
+           startStream();
         }
     }
         public boolean checkWLANConnection() {
