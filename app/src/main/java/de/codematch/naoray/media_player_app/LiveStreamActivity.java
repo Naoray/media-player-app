@@ -67,11 +67,18 @@ public class LiveStreamActivity extends AppCompatActivity {
             connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             if (!wifiManager.isWifiEnabled()) {
-                // Fragen ob WLAN aktiviert werden soll
+                // ask, if WLAN shoeld be activated
                 DialogFragment newFragment = new WLANactivateDialogFragment();
                 newFragment.show(getFragmentManager(), "WLAN");
+            } else {
+                if(checkWLANConnection()){
+                    startStream();
+                } else {
+                    noWLAN();
+                }
             }
         } else {
+
            startStream();
         }
     }
@@ -171,7 +178,7 @@ public class LiveStreamActivity extends AppCompatActivity {
     public void activateWLAN() {
         wifiManager.setWifiEnabled(true);
         int i = 0;
-        while (i < 6) {
+        while (i < 10) {
             if (checkWLANConnection()) {
                 startStream();
                 return;
@@ -183,7 +190,7 @@ public class LiveStreamActivity extends AppCompatActivity {
                 }
             }
 
-
+        i++;
         }
         noWLAN();
     }
