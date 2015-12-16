@@ -306,10 +306,10 @@ public class LoginActivityOriginal extends AppCompatActivity {
             if (checkInternetConnection()) {
                 // Volley-Code
                 HashMap<String, String> parameters = new HashMap<>();
-                parameters.put("Username", mEmail);
+                parameters.put("Username", encrypt(mEmail));//mEmail
                 parameters.put("pw", encrypt(mPassword)); //mPassword
                 RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
-                String url = "http://192.168.1.14/test.php"; //http://naoray.pf-control.de/jsonresponse/index.php
+                String url = "http://naoray.pf-control.de/jsonresponse/index.php";
 
 
                 LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
