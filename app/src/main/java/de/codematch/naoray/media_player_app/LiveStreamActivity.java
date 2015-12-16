@@ -85,7 +85,8 @@ public class LiveStreamActivity extends AppCompatActivity {
         public boolean checkWLANConnection() {
             NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
             if (activeNetwork != null) { // connected to the internet
-                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI &&
+                        activeNetwork.isConnected()) {
                     // connected to wifi
                     return true;
 
