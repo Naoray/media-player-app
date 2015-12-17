@@ -269,10 +269,10 @@ public class LoginActivityOriginal extends AppCompatActivity {
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-        public boolean responsebool = false;
-
         private final String mEmail;
         private final String mPassword;
+        //Boolean variable for checking if a server response arrived
+        public boolean responsebool = false;
         private Boolean verified = false;
 
         UserLoginTask(String email, String password) {
@@ -285,7 +285,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
          */
         private Boolean checkInternetConnection() {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+            return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
         }
 
         @Override
@@ -328,8 +328,8 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 // Volley Code Ende
                 //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
                 try {
-                    for (int i = 0; i<30;i++){
-                        if (responsebool){
+                    for (int i = 0; i < 30; i++) {
+                        if (responsebool) {
                             break;
                         }
                         Thread.sleep(100);
