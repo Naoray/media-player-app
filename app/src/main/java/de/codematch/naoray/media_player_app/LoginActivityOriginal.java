@@ -269,10 +269,9 @@ public class LoginActivityOriginal extends AppCompatActivity {
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-        public boolean responsebool = false;
-
         private final String mEmail;
         private final String mPassword;
+        public boolean responsebool = false;
         private Boolean verified = false;
 
         UserLoginTask(String email, String password) {
@@ -285,7 +284,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
          */
         private Boolean checkInternetConnection() {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+            return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
         }
 
         @Override
