@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    tools:context=".MainMenueActivity">
+    android:padding="3dp"
+    android:scrollbars="vertical" />
 
-    <ListView
-        android:id="@+id/menu_list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:dividerHeight="20dp"
-        android:drawSelectorOnTop="false"
-        android:fastScrollAlwaysVisible="false"
-        android:longClickable="false"
-        android:padding="16dp"
-        android:textFilterEnabled="false">
-    </ListView>
-
-    <TextView
-        android:id="@+id/willkommenstextTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/willkommenstext"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-</RelativeLayout>
