@@ -1,17 +1,19 @@
 <resources>
-    <!-- Strings related to Main menu -->
+    <!-- Strings related to app & activities -->
     <string name="app_name">Regiotainment MediaPlayer</string>
-    <string name="willkommenstext">Hello</string>
-    <string name="wunschtext">Have fun with the app!</string>
-    <string name="title_activity_main_menue">Main menu</string>
+    <string name="title_activity_main_menu">Main menu</string>
     <string name="title_activity_live_stream">Live Stream</string>
     <string name="title_activity_mediathek">Media center</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="title_activity_credtis">Credits</string>
 
-    <!-- Strings related to MainMenueActivity -->
+    <!-- Strings related to MainMenuActivity -->
+    <string name="welcome_text">Hello</string>
+    <string name="wish_text">Have fun with the app!</string>
     <string name="app_closing_warning">Press AGAIN to leave the app.</string>
+    <string name="not_available">Not available!</string>
 
-    <!-- Strings related to Navigation -->
+    <!-- Strings related to menu -->
     <string name="menu_item_1">Live Stream</string>
     <string name="menu_item_2">Media center</string>
     <string name="menu_item_3">Credits</string>
@@ -20,21 +22,16 @@
     <string name="buffer_message">Stream is buffering...</string>
 
     <!-- Strings related to Settings -->
-
     <string name="menu_item_ausloggen">Logout</string>
     <string name="menu_item_einstellungen">Settings</string>
     <string name="menu_item_hilfe">Help</string>
 
     <string name="E_Mail_Address_preferences_key">E-Mail Key</string>
     <string name="landscape_preferences_key">Landscape Key</string>
-    <string name="landscape_preferences_title">Videos only in landscape mode</string>
+    <string name="landscape_preferences_title">Streams only in landscape mode</string>
 
     <string name="wlan_preferences_key">WLAN Key</string>
-    <string name="wlan_preferences_title">Streaming Videos using WLAN if able</string>
-
-    <string name="title_activity_settings">Settings</string>
-    <string name="BenutzernamenÄnderungsBenachrichtigung">Settings %1$s were changed</string>
-    <string name="LeererBenutzernameEingegebenBenachrichtigung">The Username must not be empty!</string>
+    <string name="wlan_preferences_title">Streams only via WLAN</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">E-Mail</string>
@@ -46,11 +43,15 @@
     <string name="error_field_required">This is a required field!</string>
     <string name="stay_logged_in">Keep me logged in</string>
 
-    <!-- Strings related to Dialogs -->
+    <!-- Strings related to no activated WLAN Dialog -->
     <string name="enableWLAN">Enable WLAN</string>
     <string name="cancel">Cancel</string>
-    <string name="activateWlanMessage">WLAN is currently off. Activate WLAN?</string>
-    <string name="noWlan">No WLAN is avaiable</string>
-    <string name="not_available">Not available!</string>
+    <string name="activateWlanMessagePart1">WLAN is currently off.</string>
+    <string name="activateWlanMessagePart2">Activate WLAN now?</string>
+    <string name="noWlan">No WLAN network is avaiable</string>
 
+    <!-- Strings related to no connection Dialog -->
+    <string name="accept_button">Okay</string>
+    <string name="noConnectionMessagePart1">Unable to connect to the internet.</string>
+    <string name="noConnectionMessagePart2">Make sure that an internet connection exists and try again.</string>
 </resources>

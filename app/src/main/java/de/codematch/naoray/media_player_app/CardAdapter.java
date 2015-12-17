@@ -17,9 +17,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     TextView descriptionMain;
     private ArrayList<Card> cardArrayList;
     //    private ClickListener clickListener;
-    private MainMenueActivity main;
+    private MainMenuActivity main;
 
-    public CardAdapter(ArrayList<Card> cardArrayList, MainMenueActivity main) {
+    public CardAdapter(ArrayList<Card> cardArrayList, MainMenuActivity main) {
         this.cardArrayList = cardArrayList;
         this.main = main;
     }

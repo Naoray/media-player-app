@@ -3,6 +3,7 @@
 
     <item
         android:id="@+id/menu_item_einstellungen"
+        android:icon="@mipmap/ic_settings_black"
         android:orderInCategory="1"
         android:title="@string/menu_item_einstellungen" />
     <item
@@ -11,6 +12,7 @@
         android:title="@string/menu_item_3" />
     <item
         android:id="@+id/menu_item_hilfe"
+        android:icon="@mipmap/ic_help_black"
         android:orderInCategory="3"
         android:title="@string/menu_item_hilfe" />
     <item

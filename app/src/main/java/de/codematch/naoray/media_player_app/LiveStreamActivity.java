@@ -57,13 +57,17 @@ public class LiveStreamActivity extends AppCompatActivity {
         String WLANPreferencesKey = getString(R.string.wlan_preferences_key);
         Boolean wlancheck = sPrefs.getBoolean(WLANPreferencesKey, false);
 
+        connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
         if (wlancheck) {
-            connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
             wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             if (!wifiManager.isWifiEnabled()) {
-                // ask, if WLAN shoeld be activated
-                DialogFragment newFragment = new WLANactivateDialogFragment();
-                newFragment.show(getFragmentManager(), "WLAN");
+                // ask, if WLAN should be activated
+                DialogFragment wlanActivateDialog = new WLANactivateDialogFragment();
+                //makes sure, that the dialog is NOT closed after the user clicks on the back button in the navigation bar
+                wlanActivateDialog.setCancelable(false);
+                wlanActivateDialog.show(getFragmentManager(), "WLAN");
             } else {
                 if (checkWLANConnection()) {
                     startStream();
@@ -72,8 +76,15 @@ public class LiveStreamActivity extends AppCompatActivity {
                 }
             }
         } else {
-
-            startStream();
+            NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+            if (activeNetwork != null && activeNetwork.isConnected()) {
+                startStream();
+            } else {
+                DialogFragment noConnectionDialog = new NoConnectionDialogFragment();
+                //makes sure, that the dialog is NOT closed after the user clicks on the back button in the navigation bar
+                noConnectionDialog.setCancelable(false);
+                noConnectionDialog.show(getFragmentManager(), "No connection");
+            }
         }
     }
 
