@@ -1,7 +1,6 @@
 package de.codematch.naoray.media_player_app;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
@@ -21,8 +19,6 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.VideoView;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 
 public class LiveStreamActivity extends AppCompatActivity {
 
@@ -51,8 +47,7 @@ public class LiveStreamActivity extends AppCompatActivity {
         //Preferences
         sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String landscapePreferencesKey = getString(R.string.landscape_preferences_key);
-        Boolean landscapeDefaultValue = false;
-        Boolean landscape = sPrefs.getBoolean(landscapePreferencesKey, landscapeDefaultValue);
+        Boolean landscape = sPrefs.getBoolean(landscapePreferencesKey, false);
         if (landscape) {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
@@ -60,8 +55,7 @@ public class LiveStreamActivity extends AppCompatActivity {
         //WLAN-Check
         sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String WLANPreferencesKey = getString(R.string.wlan_preferences_key);
-        Boolean WLANDefaultValue = false;
-        Boolean wlancheck = sPrefs.getBoolean(WLANPreferencesKey, WLANDefaultValue);
+        Boolean wlancheck = sPrefs.getBoolean(WLANPreferencesKey, false);
 
         if (wlancheck) {
             connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -71,7 +65,7 @@ public class LiveStreamActivity extends AppCompatActivity {
                 DialogFragment newFragment = new WLANactivateDialogFragment();
                 newFragment.show(getFragmentManager(), "WLAN");
             } else {
-                if(checkWLANConnection()){
+                if (checkWLANConnection()) {
                     startStream();
                 } else {
                     noWLAN();
@@ -79,50 +73,39 @@ public class LiveStreamActivity extends AppCompatActivity {
             }
         } else {
 
-           startStream();
+            startStream();
         }
     }
-        public boolean checkWLANConnection() {
-            NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-            if (activeNetwork != null) { // connected to the internet
-                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI &&
-                        activeNetwork.isConnected()) {
-                    // connected to wifi
-                    return true;
+
+    public boolean checkWLANConnection() {
+        NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+        if (activeNetwork != null) { // connected to the internet
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI &&
+                    activeNetwork.isConnected()) {
+                // connected to wifi
+                return true;
 
 
-                }
             }
-            return false;
         }
-                    // no WLAN available
-        public void noWLAN(){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.noWlan)
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            finish();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
+        return false;
+    }
 
+    // no WLAN available
+    public void noWLAN() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.noWlan)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
-
-                }
-
-
-
-
-
-
-
-
-
-
-
-        public void startStream(){
+    public void startStream() {
         // Find your VideoView in your video_main.xml layout
         videoview = (VideoView) findViewById(R.id.VideoView);
         // Execute StreamVideo AsyncTask
@@ -163,19 +146,7 @@ public class LiveStreamActivity extends AppCompatActivity {
         });
 
     }
-    // not in use
-    public NetworkInfo findWlan(ConnectivityManager connManager)
-        {
-            Network[] networks = connManager.getAllNetworks();
-        NetworkInfo networkInfo;
-        for (Network a : networks) {
-            networkInfo = connManager.getNetworkInfo(a);
-            if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                return networkInfo;
-            }
-        }
-        return null;
-    }
+
     public void activateWLAN() {
         wifiManager.setWifiEnabled(true);
         int i = 0;
@@ -191,11 +162,10 @@ public class LiveStreamActivity extends AppCompatActivity {
                 }
             }
 
-        i++;
+            i++;
         }
         noWLAN();
     }
-
 
 
     //Notification- und Navigation-Leiste werden ausgeblendet. Die Activity geht somit quasi in einen Vollbild-Modus
