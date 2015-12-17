@@ -271,6 +271,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         private final String mEmail;
         private final String mPassword;
+        //Boolean variable for checking if a server response arrived
         public boolean responsebool = false;
         private Boolean verified = false;
 
@@ -327,8 +328,8 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 // Volley Code Ende
                 //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
                 try {
-                    for (int i = 0; i<30;i++){
-                        if (responsebool){
+                    for (int i = 0; i < 30; i++) {
+                        if (responsebool) {
                             break;
                         }
                         Thread.sleep(100);
