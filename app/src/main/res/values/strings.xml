@@ -28,6 +28,10 @@
     <string name="E_Mail_Address_preferences_key">E-Mail Key</string>
     <string name="landscape_preferences_key">Landscape Key</string>
     <string name="landscape_preferences_title">Videos only in landscape mode</string>
+
+    <string name="wlan_preferences_key">WLAN Key</string>
+    <string name="wlan_preferences_title">Streaming Videos using WLAN if able</string>
+
     <string name="title_activity_settings">Settings</string>
     <string name="BenutzernamenÄnderungsBenachrichtigung">Settings %1$s were changed</string>
     <string name="LeererBenutzernameEingegebenBenachrichtigung">The Username must not be empty!</string>
@@ -44,6 +48,11 @@
         completions."</string>
     <string name="stay_logged_in">Keep me logged in</string>
 
+    <!-- Strings related to Dialogs -->
+    <string name="enableWLAN">Enable WLAN</string>
+    <string name="cancel">Cancel</string>
+    <string name="activateWlanMessage">A WLAN network is available. Activate WLAN on your Device?</string>
+    <string name="noWlan">No WLAN is avaiable</string>
     <string name="not_available">Not available!</string>
 
 </resources>
