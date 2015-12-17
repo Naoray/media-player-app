@@ -52,12 +52,7 @@ public class MainMenuActivity extends AppCompatActivity {
         CardAdapter = new CardAdapter(cards, this);
         recycler.setAdapter(CardAdapter);
 
-        //Shows a TOAST to welcome the current user and wishes him fun with the app
-        String usernamePreferencesKey = getString(R.string.E_Mail_Address_preferences_key);
-        String currentUsername = sPrefs.getString(usernamePreferencesKey, "");
 
-        String wunschtext = getString(R.string.wish_text);
-        Toast.makeText(MainMenuActivity.this, getString(R.string.welcome_text) + ", " + currentUsername + "!" + "\n" + wunschtext, Toast.LENGTH_LONG).show();
 
         /*
         menuItems[0] = getString(R.string.menu_item_1);
