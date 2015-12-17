@@ -53,4 +53,5 @@
     <string name="cancel">Cancel</string>
     <string name="activateWlanMessage">A WLAN network is available. Activate WLAN on your Device?</string>
     <string name="noWlan">No WLAN is avaiable</string>
+
 </resources>
