@@ -14,7 +14,7 @@ public class WLANactivateDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.activateWlanMessage)
+        builder.setMessage(getString(R.string.activateWlanMessagePart1) + "\n" + getString(R.string.activateWlanMessagePart2))
                 .setPositiveButton(R.string.enableWLAN, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User wants to activate WLAN on device
@@ -26,8 +26,12 @@ public class WLANactivateDialogFragment extends DialogFragment {
                         // User cancelled the dialog
                         ((LiveStreamActivity)getActivity()).finish();
                     }
-                });
-        // Create the AlertDialog object and return it
-        return builder.create();
+                })
+                .setCancelable(false);
+
+        // Create the AlertDialog object, make sure it doesn't close after a click outside of it and return it
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 }

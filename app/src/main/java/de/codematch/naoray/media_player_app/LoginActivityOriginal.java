@@ -255,7 +255,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
 
     //starts the mainmenu-activity
     protected void login() {
-        startActivity(new Intent(LoginActivityOriginal.this, MainMenueActivity.class));
+        startActivity(new Intent(LoginActivityOriginal.this, MainMenuActivity.class));
     }
 
     //returns the current login-state

@@ -1,18 +1,19 @@
 <resources>
-    <!-- Strings related to Main menu -->
+    <!-- Strings related to app & activities -->
     <string name="app_name">Regiotainment MediaPlayer</string>
-    <string name="willkommenstext">Guten Tag</string>
-    <string name="wunschtext">Wir wünschen Ihnen viel Spaß mit der App!</string>
-    <string name="title_activity_main_menue">Hauptmenü</string>
+    <string name="title_activity_main_menu">Hauptmenü</string>
     <string name="title_activity_live_stream">Live Stream</string>
     <string name="title_activity_mediathek">Mediathek</string>
+    <string name="title_activity_settings">Einstellungen</string>
     <string name="title_activity_credtis">Credits</string>
 
-    <!-- Strings related to MainMenueActivity -->
+    <!-- Strings related to MainMenuActivity -->
+    <string name="welcome_text">Guten Tag</string>
+    <string name="wish_text">Wir wünschen Ihnen viel Spaß mit der App!</string>
     <string name="app_closing_warning">Noch EINMAL drücken zum Verlassen der App</string>
+    <string name="not_available">Nicht verfügbar!</string>
 
-    <!-- Strings related to Navigation -->
-
+    <!-- Strings related to menu -->
     <string name="menu_item_1">Live Stream</string>
     <string name="menu_item_2">Mediathek</string>
     <string name="menu_item_3">Credits</string>
@@ -20,23 +21,17 @@
     <!-- Strings related to LiveStream -->
     <string name="buffer_message">Stream puffert...</string>
 
-
     <!-- Strings related to Settings -->
-
     <string name="menu_item_ausloggen">Ausloggen</string>
     <string name="menu_item_einstellungen">Einstellungen</string>
     <string name="menu_item_hilfe">Hilfe</string>
 
     <string name="E_Mail_Address_preferences_key">E-Mail Key</string>
     <string name="landscape_preferences_key">Landscape Key</string>
-    <string name="landscape_preferences_title">Videos nur im Querformat</string>
+    <string name="landscape_preferences_title">Streams nur im Querformat anzeigen</string>
 
     <string name="wlan_preferences_key">WLAN Key</string>
-    <string name="wlan_preferences_title">Stream nur via WLAN</string>
-
-    <string name="title_activity_settings">Einstellungen</string>
-    <string name="BenutzernamenÄnderungsBenachrichtigung">Einstellung %1$s wurde geändert</string>
-    <string name="LeererBenutzernameEingegebenBenachrichtigung">Der Benutzername darf nicht leer sein!!</string>
+    <string name="wlan_preferences_title">Streams nur via WLAN</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">E-Mail</string>
@@ -48,9 +43,15 @@
     <string name="error_field_required">Dieses Feld ist erforderlich</string>
     <string name="stay_logged_in">Eingeloggt bleiben</string>
 
-    <!-- Strings related to Dialogs -->
+    <!-- Strings related to no activated WLAN Dialog -->
     <string name="enableWLAN">WLAN aktivieren</string>
     <string name="cancel">Abbrechen</string>
-    <string name="activateWlanMessage">WLAN is momentan aus. WLAN aktivieren?</string>
-    <string name="noWlan">Kein WLAN verfügbar</string>
+    <string name="activateWlanMessagePart1">WLAN ist momentan ausgeschaltet.</string>
+    <string name="activateWlanMessagePart2">WLAN jetzt aktivieren?</string>
+    <string name="noWlan">Kein WLAN-Netzwerk verfügbar</string>
+
+    <!-- Strings related to no connection Dialog -->
+    <string name="accept_button">Okay</string>
+    <string name="noConnectionMessagePart1">Es kann keine Verbindung mit dem Internet hergestellt werden.</string>
+    <string name="noConnectionMessagePart2">Stellen Sie sicher, dass eine Internetverbindung besteht und versuchen sie es erneut.</string>
 </resources>

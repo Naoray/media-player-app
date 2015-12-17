@@ -9,7 +9,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/regio_tainment_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -25,28 +25,28 @@
         <activity
             android:name=".LiveStreamActivity"
             android:configChanges="orientation|screenSize"
-            android:parentActivityName=".MainMenueActivity"
+            android:parentActivityName=".MainMenuActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".MediathekActivity"
             android:label="@string/title_activity_mediathek"
-            android:parentActivityName=".MainMenueActivity" />
+            android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".CreditsActivity"
             android:label="@string/title_activity_credtis"
-            android:parentActivityName=".MainMenueActivity" />
+            android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainMenueActivity" />
+            android:parentActivityName=".MainMenuActivity" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainMenueActivity" />
+            android:value=".MainMenuActivity" />
 
         <activity
-            android:name=".MainMenueActivity"
-            android:label="@string/title_activity_main_menue" />
+            android:name=".MainMenuActivity"
+            android:label="@string/title_activity_main_menu" />
     </application>
 
 </manifest>

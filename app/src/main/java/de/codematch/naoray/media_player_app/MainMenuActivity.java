@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainMenueActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
     GridView gridView;
@@ -34,7 +34,7 @@ public class MainMenueActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menue);
+        setContentView(R.layout.activity_main_menu);
 
         sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -52,6 +52,13 @@ public class MainMenueActivity extends AppCompatActivity {
         CardAdapter = new CardAdapter(cards, this);
         recycler.setAdapter(CardAdapter);
 
+        //Shows a TOAST to welcome the current user and wishes him fun with the app
+        String usernamePreferencesKey = getString(R.string.E_Mail_Address_preferences_key);
+        String currentUsername = sPrefs.getString(usernamePreferencesKey, "");
+
+        String wunschtext = getString(R.string.wish_text);
+        Toast.makeText(MainMenuActivity.this, getString(R.string.welcome_text) + ", " + currentUsername + "!" + "\n" + wunschtext, Toast.LENGTH_LONG).show();
+
         /*
         menuItems[0] = getString(R.string.menu_item_1);
         menuItems[1] = getString(R.string.menu_item_2);
@@ -64,13 +71,13 @@ public class MainMenueActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (menuItems[(int) id]) {
                     case "Live Stream":
-                        intent = new Intent(MainMenueActivity.this, LiveStreamActivity.class);
+                        intent = new Intent(MainMenuActivity.this, LiveStreamActivity.class);
                         break;
                     case "Mediathek":
-                        intent = new Intent(MainMenueActivity.this, MediathekActivity.class);
+                        intent = new Intent(MainMenuActivity.this, MediathekActivity.class);
                         break;
                     default:
-                        Toast.makeText(MainMenueActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainMenuActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
                 }
                 if (intent != null) {
                     startActivity(intent);
@@ -97,26 +104,26 @@ public class MainMenueActivity extends AppCompatActivity {
         switch (position) {
             //Programm1
             case 0:
-                intent = new Intent(MainMenueActivity.this, LiveStreamActivity.class);
+                intent = new Intent(MainMenuActivity.this, LiveStreamActivity.class);
                 break;
             //Programm2
             case 1:
-                Toast.makeText(MainMenueActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
                 break;
             //Programm3
             case 2:
-                Toast.makeText(MainMenueActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
                 break;
             //Programm4
             case 3:
-                Toast.makeText(MainMenueActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
                 break;
             //Mediathek
             case 4:
-                Toast.makeText(MainMenueActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Toast.makeText(MainMenueActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainMenuActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
         }
 
         if (intent != null) {
