@@ -18,16 +18,15 @@ public class WLANactivateDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.enableWLAN, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User wants to activate WLAN on device
-                        ((LiveStreamActivity)getActivity()).activateWLAN();
+                        ((LiveStreamActivity) getActivity()).activateWLAN();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
-                        ((LiveStreamActivity)getActivity()).finish();
+                        ((LiveStreamActivity) getActivity()).finish();
                     }
-                })
-                .setCancelable(false);
+                });
 
         // Create the AlertDialog object, make sure it doesn't close after a click outside of it and return it
         AlertDialog dialog = builder.create();

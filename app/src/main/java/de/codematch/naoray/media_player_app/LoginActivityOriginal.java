@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -256,6 +257,12 @@ public class LoginActivityOriginal extends AppCompatActivity {
     //starts the mainmenu-activity
     protected void login() {
         startActivity(new Intent(LoginActivityOriginal.this, MainMenuActivity.class));
+        //Shows a TOAST to welcome the current user and wishes him fun with the app
+        String usernamePreferencesKey = getString(R.string.E_Mail_Address_preferences_key);
+        String currentUsername = spref.getString(usernamePreferencesKey, "");
+
+        String wunschtext = getString(R.string.wish_text);
+        Toast.makeText(LoginActivityOriginal.this, getString(R.string.welcome_text) + ", " + currentUsername + "!" + "\n" + wunschtext, Toast.LENGTH_LONG).show();
     }
 
     //returns the current login-state
