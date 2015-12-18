@@ -70,18 +70,23 @@ public class LoginActivityOriginal extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.getAppPreferences();
+
+        if (this.checkLoginState()) {
+            this.login();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_original);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        this.getAppPreferences();
-
         // calling DatabaseManager to Init DB
         db = new DatabaseManager(this);
 
-        mEmailView.setText(spref.getString(getString(R.string.E_Mail_Address_preferences_key), ""));
+        mEmailView.setText(spref.getString(getString(R.string.e_mail_address_preferences_key), ""));
         if (!mEmailView.getText().toString().equals("")) {
             mPasswordView.requestFocus();
         }
@@ -99,10 +104,6 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 editor.apply();
             }
         });
-
-        if (this.checkLoginState()) {
-            this.login();
-        }
 
         this.addEmailsToAutoComplete();
 
@@ -258,15 +259,16 @@ public class LoginActivityOriginal extends AppCompatActivity {
     protected void login() {
         startActivity(new Intent(LoginActivityOriginal.this, MainMenuActivity.class));
         //Shows a TOAST to welcome the current user and wishes him fun with the app
-        String usernamePreferencesKey = getString(R.string.E_Mail_Address_preferences_key);
+        String usernamePreferencesKey = getString(R.string.e_mail_address_preferences_key);
         String currentUsername = spref.getString(usernamePreferencesKey, "");
 
         String wunschtext = getString(R.string.wish_text);
-        Toast.makeText(LoginActivityOriginal.this, getString(R.string.welcome_text) + ", " + currentUsername + "!" + "\n" + wunschtext, Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivityOriginal.this, getString(R.string.welcome_text) + ", " + currentUsername + "!" + "\n" + wunschtext, Toast.LENGTH_SHORT).show();
     }
 
     //returns the current login-state
     private Boolean checkLoginState() {
+
         return spref.getBoolean("LoginState", false);
     }
 
@@ -283,7 +285,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
         private Boolean verified = false;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
+            mEmail = email.toLowerCase();
             mPassword = password;
         }
 
@@ -367,7 +369,7 @@ public class LoginActivityOriginal extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-                editor.putString(getString(R.string.E_Mail_Address_preferences_key), mEmail);
+                editor.putString(getString(R.string.e_mail_address_preferences_key), mEmail);
                 editor.apply();
 
                 finish();

@@ -1,6 +1,7 @@
 package de.codematch.naoray.media_player_app;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -8,6 +9,7 @@ import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -44,7 +46,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     }
 
-    //Der Zurück-Pfeil sorgt dafür, dass man zur Parent-Activity zurück kommt
+    //Ist erforderlich, damit das funktioniert:
+    //Der Zurück-Pfeil in der ActionBar sorgt dafür, dass man zur Parent-Activity zurück kommt
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         int id = item.getItemId();
@@ -82,7 +85,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.preferences);
+
+            // Defines what the deleteHistoryButton does when clicked
+            Preference deleteHistoryButton = findPreference(getString(R.string.delete_email_history_preferences_key));
+            deleteHistoryButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    // Clears the emailAutocompleteList and the last entered email, so that the email field is empty again
+                    SharedPreferences sPref = getPreferenceManager().getSharedPreferences();
+                    SharedPreferences.Editor editor = sPref.edit();
+                    editor.putStringSet("emailAutocompleteList", null);
+                    editor.putString(getString(R.string.e_mail_address_preferences_key), "");
+                    editor.apply();
+                    Toast.makeText(getActivity(), getString(R.string.delete_email_history_preferences_toast), Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
         }
+
 
     }
 }
