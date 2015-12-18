@@ -33,8 +33,8 @@
     <string name="landscape_preferences_summary">Streams are only shown in landscape mode</string>
 
     <string name="wlan_preferences_key">WLAN Key</string>
-    <string name="wlan_preferences_title">WLAN only</string>
-    <string name="wlan_preferences_summary">Streams only use a WLAN connection</string>
+    <string name="wlan_preferences_title">Wi-Fi only</string>
+    <string name="wlan_preferences_summary">Streams only use a Wi-Fi connection</string>
 
     <string name="delete_email_history_preferences_key">Delete History Key</string>
     <string name="delete_email_history_preferences_title">Delete e-mail history</string>
