@@ -52,11 +52,11 @@
     <string name="stay_logged_in">Keep me logged in</string>
 
     <!-- Strings related to no activated WLAN Dialog -->
-    <string name="enableWLAN">Enable WLAN</string>
+    <string name="enableWLAN">Enable Wi-Fi</string>
     <string name="cancel">Cancel</string>
-    <string name="activateWlanMessagePart1">WLAN is currently off.</string>
-    <string name="activateWlanMessagePart2">Activate WLAN now?</string>
-    <string name="noWlan">No WLAN network is avaiable</string>
+    <string name="activateWlanMessagePart1">Wi-Fi is currently off.</string>
+    <string name="activateWlanMessagePart2">Activate Wi-Fi now?</string>
+    <string name="noWlan">No Wi-Fi network is avaiable</string>
 
     <!-- Strings related to no connection Dialog -->
     <string name="accept_button">Okay</string>
