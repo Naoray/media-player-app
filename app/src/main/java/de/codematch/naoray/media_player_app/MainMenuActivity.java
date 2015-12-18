@@ -83,7 +83,7 @@ public class MainMenuActivity extends AppCompatActivity {
         // Die Einstellung wird zusammen mit den anderen App-Einstellungen in einer Default SharedPreferences-Datei gespeichert. Wenn der Nutzer eine Einstellung ändert, aktualisiert das System den zum angegebenen Schlüssel passenden Wert in der SharedPreferences-Datei.
         // Auf die SharedPreferences-Datei sollte nur lesend zugegriffen werden.Das Speichern übernimmt das Android System.
         // Liest die Default SharedPreferences-Datei ein und ließt den Wert, der vom passenden Key (Key-Value-Paare) referenziert wird aus
-        String benutzernamePreferencesKey = getString(R.string.E_Mail_Address_preferences_key);
+        String benutzernamePreferencesKey = getString(R.string.e_mail_address_preferences_key);
         String benutzernamePreferencesDefault = "";
         String aktuellerBenutzername = sPrefs.getString(benutzernamePreferencesKey, benutzernamePreferencesDefault);
 
