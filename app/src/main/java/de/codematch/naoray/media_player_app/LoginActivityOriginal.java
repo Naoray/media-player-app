@@ -302,38 +302,42 @@ public class LoginActivityOriginal extends AppCompatActivity {
             // TODO: attempt authentication against a network service.
             // if internetConnection exists -> communicate with server + update local database if necessary (new User or new Password)
             if (checkInternetConnection()) {
-                // Volley-Code
-                HashMap<String, String> parameters = new HashMap<>();
-                parameters.put("Username", mEmail);
-                parameters.put("pw", mPassword);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
-                String url = "http://naoray.pf-control.de/jsonresponse/index.php";
+                try {
+                    // Volley-Code
+                    HashMap<String, String> parameters = new HashMap<>();
+                    parameters.put("Username", AES.encrypt(mEmail));
+                    parameters.put("pw", AES.encrypt(mPassword));
+                    RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
+                    String url = "http://naoray.pf-control.de/jsonresponse/index.php";
 
 
-                LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+                    LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Log.d("Response: ", response.toString());
-                            responsebool = true;
-                            verified = response.getBoolean("response");
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Log.d("Response: ", response.toString());
+                                responsebool = true;
+                                verified = response.getBoolean("response");
+                            } catch (Exception e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+
                         }
+                    }, new Response.ErrorListener() {
 
-                    }
-                }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError response) {
+                            Log.d("Response: ", response.toString());
+                        }
+                    });
 
-                    @Override
-                    public void onErrorResponse(VolleyError response) {
-                        Log.d("Response: ", response.toString());
-                    }
-                });
-
-                // Request in die queue legen
-                queue.add(jsObjRequest);
+                    // Request in die queue legen
+                    queue.add(jsObjRequest);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 // Volley Code Ende
                 //This makes sure that the server has enough time to respond and that the loading animation can be shown for a necessary time
                 try {
