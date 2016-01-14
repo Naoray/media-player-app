@@ -11,7 +11,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AES {
 
-    public static void main(String[] args) {
+    //Needs to be the same key in the php-file
+    //Has to have a length of 16
+    protected static final String key = "1234567890123456";
+
+   /* public static void main(String[] args) {
         try {
 
             String key = "1234567890123456"; // have to be of length 16
@@ -24,9 +28,9 @@ public class AES {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public static String encrypt(String key, String text)
+    public static String encrypt(String text)
             throws GeneralSecurityException, UnsupportedEncodingException {
 
 
@@ -42,7 +46,7 @@ public class AES {
         cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
 
         byte[] results = cipher.doFinal(text.getBytes("ISO-8859-1"));
-        return Base64.encodeToString(results, Base64.CRLF);
+        return Base64.encodeToString(results, Base64.CRLF); //Base64.CRLF is very important here
 
         /*byte[] raw = key.getBytes(Charset.forName("UTF-8"));
         if (raw.length != 16) {
@@ -58,7 +62,7 @@ public class AES {
         return s;*/
     }
 
-    public static String decrypt(String key, String text)
+    public static String decrypt(String text)
             throws GeneralSecurityException, UnsupportedEncodingException {
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");

@@ -305,9 +305,8 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 try {
                     // Volley-Code
                     HashMap<String, String> parameters = new HashMap<>();
-                    String key = "1234567890123456"; // have to be of length 16
-                    parameters.put("Username", AES.encrypt(key, mEmail));
-                    parameters.put("pw", AES.encrypt(key, mPassword));
+                    parameters.put("Username", AES.encrypt(mEmail));
+                    parameters.put("pw", AES.encrypt(mPassword));
                     RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
                     String url = "http://naoray.pf-control.de/jsonresponse/index.php";
 
