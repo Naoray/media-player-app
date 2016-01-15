@@ -3,14 +3,12 @@ package de.codematch.naoray.media_player_app;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
@@ -40,11 +38,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         //Karten erstellen
         cards = new ArrayList<>();
-        cards.add(new Card("Hauptprogramm", "Regiotainment", R.drawable.test, Color.parseColor("#FF4081")));
-        cards.add(new Card("Programm 2", "Beschreibung 2", Color.parseColor("#1976D2")));
-        cards.add(new Card("Programm 3", "Beschreibung 3", Color.parseColor("#FF4081")));
-        cards.add(new Card("Programm 4", "Beschreibung 4", Color.parseColor("#000000")));
-        cards.add(new Card("Mediathek", "Videos in Mediathek", Color.parseColor("#CA0FEE")));
+        createCards();
 
         recycler = (RecyclerView) findViewById(R.id.recycler);
         lmanager = new GridLayoutManager(this, 2);
@@ -93,9 +87,10 @@ public class MainMenuActivity extends AppCompatActivity {
         */
     }
 
-    //Methode die aufgerufen wird, wenn auf eine Karte geklickt wird
-    public void onClick(int position, String titel) {
-        Log.d("Test", "Test " + position + " " + titel);
+    /**
+     * Methode die aufgerufen wird, wenn auf eine Karte geklickt wird
+     */
+    public void onClick(int position) {
         switch (position) {
             //Programm1
             case 0:
@@ -126,6 +121,41 @@ public class MainMenuActivity extends AppCompatActivity {
             intent = null;
         }
 
+    }
+
+    /**
+     * Methode die aufgerufen wird, wenn auf die drei Punkte einer Karte geklickt wird
+     */
+    public void cardDescription(int position) {
+        intent = new Intent(MainMenuActivity.this, CardDescriptionActivity.class);
+        intent.putExtra("CardTitle", cards.get(position).getTitel());
+        intent.putExtra("CardLargeDescription", cards.get(position).getLargeDescritption());
+        intent.putExtra("CardColor", cards.get(position).getBackground());
+
+        if (intent != null) {
+            startActivity(intent);
+            intent = null;
+        }
+
+    }
+
+    /**
+     * Methode zum Erstellen der Karten
+     */
+    public void createCards() {
+        String largeDescription = "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung. " +
+                "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung." +
+                "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung." +
+                "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung." +
+                "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung." +
+                "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung." +
+                "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung.";
+
+        cards.add(new Card("Hauptprogramm", "Regiotainment", R.drawable.test, "#FF4081", largeDescription));
+        cards.add(new Card("Programm 2", "Beschreibung 2", "#1976D2", largeDescription));
+        cards.add(new Card("Programm 3", "Beschreibung 3", "#FF4081", largeDescription));
+        cards.add(new Card("Programm 4", "Beschreibung 4", "#000000", largeDescription));
+        cards.add(new Card("Mediathek", "Videos in Mediathek", "#CA0FEE", largeDescription));
     }
 
     //Fügt das Menü in die Activity ein
