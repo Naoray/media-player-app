@@ -48,6 +48,7 @@ public class LiveStreamActivity extends AppCompatActivity {
         sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String landscapePreferencesKey = getString(R.string.landscape_preferences_key);
         Boolean landscape = sPrefs.getBoolean(landscapePreferencesKey, false);
+        //checks if landscape mode in the settings is turned on
         if (landscape) {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
@@ -58,10 +59,11 @@ public class LiveStreamActivity extends AppCompatActivity {
         Boolean wlancheck = sPrefs.getBoolean(WLANPreferencesKey, false);
 
         connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
+        // checks if the Wifi-only Option is turned on
         if (wlancheck) {
 
             wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+           // checks if Wifi is enabled on the device
             if (!wifiManager.isWifiEnabled()) {
                 // ask, if WLAN should be activated
                 DialogFragment wlanActivateDialog = new WLANactivateDialogFragment();
@@ -88,6 +90,10 @@ public class LiveStreamActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * chekcs if the device is connected to a Wifi-Network
+     * @return true if Connection exists, false if no connection exists
+     */
     public boolean checkWLANConnection() {
         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
         if (activeNetwork != null) { // connected to the internet
@@ -102,7 +108,9 @@ public class LiveStreamActivity extends AppCompatActivity {
         return false;
     }
 
-    // no WLAN available
+    /**
+     * calls a dialog to inform the user, that no Wifi-network is available
+     */
     public void noWLAN() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.noWlan)
@@ -116,6 +124,9 @@ public class LiveStreamActivity extends AppCompatActivity {
         alert.show();
     }
 
+    /**
+     * starts the stream; is called when a network (Wifi-network if Wifi-only-option is turned on) is available
+     */
     public void startStream() {
         // Find your VideoView in your video_main.xml layout
         videoview = (VideoView) findViewById(R.id.VideoView);
@@ -158,6 +169,12 @@ public class LiveStreamActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * activates the Wifi on the device, waits up to 10 seconds for a Wifi to connect.
+     * if a Connection is available, then startStream() is called and this method returns;
+     * If no connection is available within 10 seconds, noWLAN() is called to inform the user,
+     * the Stream will not start then
+     */
     public void activateWLAN() {
         wifiManager.setWifiEnabled(true);
         int i = 0;
