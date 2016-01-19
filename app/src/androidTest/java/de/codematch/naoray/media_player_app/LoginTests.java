@@ -35,7 +35,7 @@ public class LoginTests extends ActivityInstrumentationTestCase2<LoginActivityOr
 
 
 
-    /*
+
         // Set up an ActivityMonitor
         Instrumentation.ActivityMonitor mainActivityMonitor =
                 getInstrumentation().addMonitor(MainMenuActivity.class.getName(),
@@ -53,7 +53,7 @@ public class LoginTests extends ActivityInstrumentationTestCase2<LoginActivityOr
         // Remove the ActivityMonitor
         getInstrumentation().removeMonitor(mainActivityMonitor);
 
-    */
+
     }
     public void startLogin(String mail, String pw){
         final AutoCompleteTextView  email = (AutoCompleteTextView) getActivity().findViewById(R.id.email);
@@ -96,10 +96,12 @@ public class LoginTests extends ActivityInstrumentationTestCase2<LoginActivityOr
         //TouchUtils alleine klappt nicht und performclick wirft oft Exceptions bzw. wird ausgeführt
         // bevor der REst übertragen wird???
             TouchUtils.clickView(this, login);
-        getInstrumentation().waitForIdle(new SetActivityMoitor());
+        //getInstrumentation().waitForIdle(new SetActivityMoitor());
                 //login.performClick();
+        getInstrumentation().waitForIdleSync();
 
     }
+    /*
     public class SetActivityMoitor implements Runnable{
 
         public void run(){
@@ -120,5 +122,6 @@ public class LoginTests extends ActivityInstrumentationTestCase2<LoginActivityOr
             getInstrumentation().removeMonitor(mainActivityMonitor);
         }
     }
+    */
 
 }
