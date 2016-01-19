@@ -67,7 +67,7 @@ public class LoginTests extends ActivityInstrumentationTestCase2<LoginActivityOr
         getInstrumentation().waitForIdleSync();
 
 
-        for(int x = 0; x < 7; x++) {
+        for(int x = 0; x < 30; x++) {
             getInstrumentation().sendCharacterSync(KeyEvent.KEYCODE_DPAD_RIGHT);
             getInstrumentation().sendCharacterSync(KeyEvent.KEYCODE_DEL);
         }
