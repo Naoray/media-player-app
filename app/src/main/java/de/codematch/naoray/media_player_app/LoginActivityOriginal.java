@@ -167,6 +167,10 @@ public class LoginActivityOriginal extends AppCompatActivity {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
+        } else if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
         }
 
         if (cancel) {
@@ -346,7 +350,6 @@ public class LoginActivityOriginal extends AppCompatActivity {
                             break;
                         }
                         Thread.sleep(100);
-
                     }
 
                 } catch (InterruptedException e) {
@@ -354,12 +357,16 @@ public class LoginActivityOriginal extends AppCompatActivity {
                 }
                 if (verified) {
                     db.handleUserInput(mEmail, mPassword);
+                    //if the sever does not respond in the expected time, the app checks the user data with the local database
+                } else if (!responsebool) {
+                    verified = db.verifyPassword(mEmail, mPassword);
                 }
+
             } else {
                 verified = db.verifyPassword(mEmail, mPassword);
                 // This makes sure that the loading animation is shown for a certain time
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
