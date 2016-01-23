@@ -28,6 +28,13 @@ public class LoginRequester extends Request<JSONObject>{
     private Listener<JSONObject> listener;
     private Map<String, String> params;
 
+    /**
+     * Constructor
+     * @param url
+     * @param params
+     * @param reponseListener
+     * @param errorListener
+     */
     public LoginRequester(String url, Map<String, String> params,
                           Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
@@ -35,6 +42,14 @@ public class LoginRequester extends Request<JSONObject>{
         this.params = params;
     }
 
+    /**
+     * Constructor
+     * @param method
+     * @param url
+     * @param params
+     * @param reponseListener
+     * @param errorListener
+     */
     public LoginRequester(int method, String url, Map<String, String> params,
                           Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
@@ -50,6 +65,7 @@ public class LoginRequester extends Request<JSONObject>{
     protected void deliverResponse(JSONObject response) {
         listener.onResponse(response);
     }
+
 
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
