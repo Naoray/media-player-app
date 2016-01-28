@@ -36,7 +36,7 @@ public class AES {
     /**
      * Encrypt a String with AES-Algorithm
      *
-     * @param text ext, which has to be encrypted
+     * @param text Text, which has to be encrypted
      * @return String
      * @throws GeneralSecurityException
      * @throws UnsupportedEncodingException

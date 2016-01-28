@@ -30,7 +30,7 @@ public class LoginRequester extends Request<JSONObject>{
 
     /**
      * Constructor
-     * @param url URL of the Server
+     * @param url url of the php-script which validates the request
      * @param params Parameters, which will be sent to Server
      * @param reponseListener
      * @param errorListener
@@ -45,7 +45,7 @@ public class LoginRequester extends Request<JSONObject>{
     /**
      * Constructor
      * @param method
-     * @param url URL of the Server
+     * @param url url of the php-script which validates the request
      * @param params Parameters, which will be sent to Server
      * @param reponseListener
      * @param errorListener
@@ -68,7 +68,7 @@ public class LoginRequester extends Request<JSONObject>{
     };
 
     /**
-     * perform delivery of the parsed
+     * Perform delivery of the parsed
      * response to their listeners.  The given response is guaranteed to
      * be non-null; responses that fail to parse are not delivered.
      * @param response
@@ -80,7 +80,7 @@ public class LoginRequester extends Request<JSONObject>{
 
 
     /**
-     * parse the raw network response
+     * Parse the raw network response
      * and return an appropriate response type
      * @param response Response from the network
      * @return The parsed response, or null in the case of an error
