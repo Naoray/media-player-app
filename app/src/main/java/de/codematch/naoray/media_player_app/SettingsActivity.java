@@ -60,23 +60,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return super.onMenuItemSelected(featureId, item);
     }
 
-/*    //Mit dem Rückgabewert "true" wird die Einstellung übernommen, mit "false" wird sie verworfen
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object object) {
-        if (preference == benutzernamePreference) {
-            if (object.toString().isEmpty()) {
-                Toast.makeText(this, getString(R.string.LeererBenutzernameEingegebenBenachrichtigung), Toast.LENGTH_LONG).show();
-                return false;
-            } else {
-                //Mit String.format wird hier die Variable %1$s im String "Einstellung %1$s wurde geändert" durch den Titel der Einstellung ersetzt
-                Toast.makeText(this, String.format(getString(R.string.BenutzernamenÄnderungsBenachrichtigung), getString(R.string.benutzername_preferences_title)), Toast.LENGTH_LONG).show();
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }*/
-
     public static class PrefsFragment extends PreferenceFragment {
 
         @Override

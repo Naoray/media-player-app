@@ -15,24 +15,15 @@ public class AES {
     //Has to have a length of 16
     protected static final String key = "1234567890123456";
 
-   /* public static void main(String[] args) {
-        try {
-
-            String key = "1234567890123456"; // have to be of length 16
-            String ciphertext = AES.encrypt(key, "nico@web.de");
-            System.out.println("encrypted value:" + ciphertext);
-            System.out.println("decrypted value:" + AES.decrypt(key, ciphertext));
-
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-    public static String encrypt(String text)
-            throws GeneralSecurityException, UnsupportedEncodingException {
-
+    /**
+     * Encrypts the text with AES/CBC/PKCS5Padding
+     *
+     * @param text for encryption
+     * @return encrypted String
+     * @throws GeneralSecurityException
+     * @throws UnsupportedEncodingException
+     */
+    public static String encrypt(String text) throws GeneralSecurityException, UnsupportedEncodingException {
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         byte[] keyBytes = new byte[16];
@@ -47,21 +38,17 @@ public class AES {
 
         byte[] results = cipher.doFinal(text.getBytes("ISO-8859-1"));
         return Base64.encodeToString(results, Base64.CRLF); //Base64.CRLF is very important here
-
-        /*byte[] raw = key.getBytes(Charset.forName("UTF-8"));
-        if (raw.length != 16) {
-            throw new IllegalArgumentException("Invalid key size.");
-        }
-
-        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec,
-                new IvParameterSpec("1234567890123456".getBytes("ISO-8859-1")));
-        String s = new String(cipher.doFinal(value.getBytes(Charset.forName("UTF-8"))),"ISO-8859-1");
-        //System.out.println(s + "Test");
-        return s;*/
     }
 
+    /**
+     * Decrypts the text with AES/CBC/PKCS5Padding
+     *
+     * @param text for decryption
+     * @return decrypted String
+     * @throws GeneralSecurityException
+     * @throws UnsupportedEncodingException
+     * @Info: currently not used
+     */
     public static String decrypt(String text)
             throws GeneralSecurityException, UnsupportedEncodingException {
 
@@ -78,19 +65,5 @@ public class AES {
 
         byte[] results = cipher.doFinal(Base64.decode(text, Base64.DEFAULT));
         return new String(results, "UTF-8");
-
- /*       byte[] raw = key.getBytes(Charset.forName("UTF-8"));
-        if (raw.length != 16) {
-            throw new IllegalArgumentException("Invalid key size.");
-        }
-        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, skeySpec,
-                new IvParameterSpec("1234567890123456".getBytes("ISO-8859-1")));
-        byte[] original = cipher.doFinal(encrypted);
-        String s = new String(original, Charset.forName("UTF-8"));
-        //System.out.println(s);
-        return s;*/
     }
 }

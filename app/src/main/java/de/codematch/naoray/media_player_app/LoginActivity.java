@@ -43,14 +43,7 @@ import java.util.regex.Pattern;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivityOriginal extends AppCompatActivity {
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    /*private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world" , "test@web.de:admin"
-    };*/
+public class LoginActivity extends AppCompatActivity {
 
     protected SharedPreferences spref;
     protected Set<String> emailAutocompleteList;
@@ -107,17 +100,6 @@ public class LoginActivityOriginal extends AppCompatActivity {
 
         this.addEmailsToAutoComplete();
 
-//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-//                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-//                    attemptLogin();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -151,13 +133,6 @@ public class LoginActivityOriginal extends AppCompatActivity {
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-//        if (!TextUtils.isEmpty(password)) { //&& !isPasswordValid(password)) {
-//            mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
-//            cancel = true;
-//        }
-
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
@@ -186,6 +161,12 @@ public class LoginActivityOriginal extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if the inserted email is Valid
+     *
+     * @param email
+     * @return true if email is valid
+     */
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         final String EMAIL_PATTERN = "[a-zA-Z0-9]+(?:(\\.|_)[A-Za-z0-9!#$%&'*+/=?^`{|}~-]+)*@(?!([a-zA-Z0-9]*\\.[a-zA-Z0-9]*\\.[a-zA-Z0-9]*\\.))(?:[A-Za-z0-9](?:[a-zA-Z0-9-]*[A-Za-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?";
@@ -195,19 +176,15 @@ public class LoginActivityOriginal extends AppCompatActivity {
         return matcher.matches();
     }
 
-//    private boolean isPasswordValid(String password) {
-//        //TODO: Replace this with your own logic
-//        return password.length() > 4;
-//    }
-
     /**
      * Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
+        /** On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+         * for very easy animations. If available, use these APIs to fade-in
+         * the progress spinner.
+         */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -236,13 +213,17 @@ public class LoginActivityOriginal extends AppCompatActivity {
         }
     }
 
-    //Delivers the SharedPreferences and sets the Editor for it
+    /**
+     * Delivers the SharedPreferences and sets the Editor for it
+     */
     private void getAppPreferences() {
         spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = spref.edit();
     }
 
-    //Adds the history-list of used e-mails to the dropdown menu for the e-mail field
+    /**
+     * Adds the history-list of used e-mails to the dropdown menu for the e-mail field
+     */
     private void addEmailsToAutoComplete() {
         emailAutocompleteList = spref.getStringSet("emailAutocompleteList", null);
         if (emailAutocompleteList == null) {
@@ -252,25 +233,29 @@ public class LoginActivityOriginal extends AppCompatActivity {
         if (!newList.isEmpty()) {
             //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
             ArrayAdapter<String> adapter =
-                    new ArrayAdapter<>(LoginActivityOriginal.this,
+                    new ArrayAdapter<>(LoginActivity.this,
                             android.R.layout.simple_dropdown_item_1line, newList);
 
             mEmailView.setAdapter(adapter);
         }
     }
 
-    //starts the mainmenu-activity
+    /**
+     * starts the mainmenu-activity
+     */
     protected void login() {
-        startActivity(new Intent(LoginActivityOriginal.this, MainMenuActivity.class));
+        startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
         //Shows a TOAST to welcome the current user and wishes him fun with the app
         String usernamePreferencesKey = getString(R.string.e_mail_address_preferences_key);
         String currentUsername = spref.getString(usernamePreferencesKey, "");
 
-        String wunschtext = getString(R.string.wish_text);
-        Toast.makeText(LoginActivityOriginal.this, getString(R.string.welcome_text) + ", " + currentUsername + "!" + "\n" + wunschtext, Toast.LENGTH_SHORT).show();
+        String wishText = getString(R.string.wish_text);
+        Toast.makeText(LoginActivity.this, getString(R.string.welcome_text) + ", " + currentUsername + "!" + "\n" + wishText, Toast.LENGTH_SHORT).show();
     }
 
-    //returns the current login-state
+    /**
+     * @return the current login-state
+     */
     private Boolean checkLoginState() {
 
         return spref.getBoolean("LoginState", false);
@@ -301,22 +286,34 @@ public class LoginActivityOriginal extends AppCompatActivity {
             return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
         }
 
+        /**
+         * Does an asynchronous Task and triggers the server communication
+         *
+         * @param params provided from AsyncTask
+         * @return true if authentication is successful
+         */
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
             // if internetConnection exists -> communicate with server + update local database if necessary (new User or new Password)
             if (checkInternetConnection()) {
                 try {
                     // Volley-Code
                     HashMap<String, String> parameters = new HashMap<>();
-                    parameters.put("Username", AES.encrypt(mEmail));
+                    String x = AES.encrypt(mEmail);
+                    Log.d("User", x);
+                    parameters.put("Username", x);
                     parameters.put("pw", AES.encrypt(mPassword));
-                    RequestQueue queue = Volley.newRequestQueue(LoginActivityOriginal.this);
+                    RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                     String url = "http://naoray.pf-control.de/jsonresponse/index.php";
 
 
                     LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
 
+                        /**
+                         * is executed when server responds
+                         *
+                         * @param response from Server
+                         */
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
@@ -331,6 +328,11 @@ public class LoginActivityOriginal extends AppCompatActivity {
                         }
                     }, new Response.ErrorListener() {
 
+                        /**
+                         * Logs error Message
+                         *
+                         * @param response from server
+                         */
                         @Override
                         public void onErrorResponse(VolleyError response) {
                             Log.d("Response: ", response.toString());
@@ -375,6 +377,11 @@ public class LoginActivityOriginal extends AppCompatActivity {
             return verified;
         }
 
+        /**
+         * Gets Triggered after doInBackground is finished
+         *
+         * @param success true if authentication is successful
+         */
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
@@ -403,7 +410,9 @@ public class LoginActivityOriginal extends AppCompatActivity {
             showProgress(false);
         }
 
-        // Adds the new verified E-Mail Address to the List of used E-Mails
+        /**
+         * Adds the new verified E-Mail Address to the List of used E-Mails
+         */
         protected void addEmailToAutocompleteList() {
 
             /*We have to copy the existing E-Mail-History into a new list, in order to be able to add a new list to

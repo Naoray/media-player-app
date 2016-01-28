@@ -19,17 +19,34 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private String username;
     private String password;
 
+    /**
+     * initializes a SQLLiteDatabase
+     *
+     * @param context in which this class is called (app)
+     */
     public DatabaseManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         SQLiteDatabase db = this.getWritableDatabase();
     }
 
+    /**
+     * creates a local Database if not already created
+     *
+     * @param db local database
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Takes String Query -> work like normal SQL
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_USER + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USERNAME + " TEXT, " + KEY_PASSWORD + " TEXT)");
     }
 
+    /**
+     * handles updates of the database, gets triggered when data is updated
+     *
+     * @param db         local database
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Deletes Table if exists
@@ -37,6 +54,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * writes user data into the local database if necessary
+     *
+     * @param username
+     * @param pw
+     */
     public void handleUserInput(String username, String pw) {
         this.username = username;
         this.password = pw;
@@ -55,6 +78,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * updates User password
+     */
     private void updateUserPassword() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_PASSWORD, password);
@@ -62,6 +88,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 new String[]{username});
     }
 
+    /**
+     * @return true if password is changed
+     */
     private Boolean checkIfPasswordHasChanged() {
         query.moveToFirst();
         String pwData = query.getString(1);
@@ -69,6 +98,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return !password.equals(pwData);
     }
 
+    /**
+     * adds user data into contentValues
+     */
     private void addUserInfo() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_USERNAME, username);
@@ -76,17 +108,27 @@ public class DatabaseManager extends SQLiteOpenHelper {
         getWritableDatabase().insert(TABLE_USER, null, contentValues);
     }
 
+    /**
+     * @return true if User exists
+     */
     private Boolean checkIfUserExists() {
         query = getUserData(username);
-
         return query != null && query.getCount() == 1;
     }
 
-    // returns Data of a specific user
+    /**
+     * @param username
+     * @return data of a specific user
+     */
     public Cursor getUserData(String username) {
         return getReadableDatabase().rawQuery("SELECT username, password FROM " + TABLE_USER + " WHERE LOWER(" + KEY_USERNAME + ") = LOWER(?)", new String[]{String.valueOf(username)});
     }
 
+    /**
+     * @param username
+     * @param pw       inserted password
+     * @return true if inserted password matches the local saved password
+     */
     public Boolean verifyPassword(String username, String pw) {
         query = getUserData(username);
 
