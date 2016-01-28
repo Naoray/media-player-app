@@ -91,7 +91,7 @@ public class LiveStreamActivity extends AppCompatActivity {
     }
 
     /**
-     * chekcs if the device is connected to a Wifi-Network
+     * checks if the device is connected to a Wifi-Network
      * @return true if Connection exists, false if no connection exists
      */
     public boolean checkWLANConnection() {

@@ -45,46 +45,6 @@ public class MainMenuActivity extends AppCompatActivity {
         recycler.setLayoutManager(lmanager);
         CardAdapter = new CardAdapter(cards, this);
         recycler.setAdapter(CardAdapter);
-
-
-
-        /*
-        menuItems[0] = getString(R.string.menu_item_1);
-        menuItems[1] = getString(R.string.menu_item_2);
-
-        final ListView menuView = (ListView) findViewById(R.id.menu_list);
-        ArrayAdapter<String> menuViewAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItems);
-        menuView.setAdapter(menuViewAdapter);
-        menuView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (menuItems[(int) id]) {
-                    case "Live Stream":
-                        intent = new Intent(MainMenuActivity.this, LiveStreamActivity.class);
-                        break;
-                    case "Mediathek":
-                        intent = new Intent(MainMenuActivity.this, MediathekActivity.class);
-                        break;
-                    default:
-                        Toast.makeText(MainMenuActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
-                }
-                if (intent != null) {
-                    startActivity(intent);
-                }
-            }
-        });
-
-        // Die Einstellung wird zusammen mit den anderen App-Einstellungen in einer Default SharedPreferences-Datei gespeichert. Wenn der Nutzer eine Einstellung ändert, aktualisiert das System den zum angegebenen Schlüssel passenden Wert in der SharedPreferences-Datei.
-        // Auf die SharedPreferences-Datei sollte nur lesend zugegriffen werden.Das Speichern übernimmt das Android System.
-        // Liest die Default SharedPreferences-Datei ein und ließt den Wert, der vom passenden Key (Key-Value-Paare) referenziert wird aus
-        String benutzernamePreferencesKey = getString(R.string.e_mail_address_preferences_key);
-        String benutzernamePreferencesDefault = "";
-        String aktuellerBenutzername = sPrefs.getString(benutzernamePreferencesKey, benutzernamePreferencesDefault);
-
-        String wunschtext = getString(R.string.wunschtext);
-        TextView willkommenstextTextView = (TextView) findViewById(R.id.willkommenstextTextView);
-        willkommenstextTextView.setText(willkommenstextTextView.getText() + ", " + aktuellerBenutzername + "!" + "\n" + wunschtext);
-        */
     }
 
     /**
@@ -161,7 +121,7 @@ public class MainMenuActivity extends AppCompatActivity {
     //Fügt das Menü in die Activity ein
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflates the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_settings_menue, menu);
         return true;
     }
@@ -183,7 +143,7 @@ public class MainMenuActivity extends AppCompatActivity {
                     editor.putBoolean("LoginState", false);
                     editor.apply();
                 }
-                Intent intent = new Intent(this, LoginActivityOriginal.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);// clear back stack
+                Intent intent = new Intent(this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);// clear back stack
                 startActivity(intent);
                 finish();
                 break;
