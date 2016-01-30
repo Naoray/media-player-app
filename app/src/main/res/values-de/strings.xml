@@ -62,4 +62,60 @@
     <string name="accept_button">Okay</string>
     <string name="noConnectionMessagePart1">Es kann keine Verbindung mit dem Internet hergestellt werden.</string>
     <string name="noConnectionMessagePart2">Stellen Sie sicher, dass eine Internetverbindung besteht und versuchen sie es erneut.</string>
+
+    <!-- Strings related to HelpActivity -->
+    <string name="title_activity_help">Hilfe</string>
+    <string name="help_installation">Installation</string>
+    <string name="help_disclaimer">Haftungsausschluss</string>
+    <string name="help_disclaimer_text">Der Autor dieses Programms haftet nicht für Schäden an Soft-
+        oder Hardware oder Vermögensschäden, die durch das Benutzen des Programms entstehen!</string>
+    <string name="help_system">Systemanforderungen</string>
+    <string name="help_system_text1">1,5 GHz Quadcore Prozessor</string>
+    <string name="help_system_text2">2GB RAM 20 MB verfügbarer Speicherplatz</string>
+    <string name="help_system_text3">20 MB verfügbarer Speicherplatz</string>
+    <string name="help_system_text4">Android 5.1.1 oder höher</string>
+    <string name="help_system_text5">Netzwerkverbindung (mobile Daten oder WiFi)</string>
+    <string name="help_googleplay">Google Play Store</string>
+    <string name="help_googleplay_text">Wenn Sie die Applikation aus dem Google Play Store beziehen, haben sie nichts
+        zu beachten und können die App wie jede andere Installieren.</string>
+    <string name="help_unknownsource">App von anderer Quelle installieren</string>
+    <string name="help_unknownsource_text">Haben Sie die App als APK-Datei von einer anderen Quelle bezogen, so müssen Sie vor dem
+        Installieren die Option „Unbekannte Herkunft von Apps zulassen“ aktivieren.
+        Dazu gehen Sie in die Einstellungen ihres Mobiltelefons und wählen dort den
+        Menüpunkt „Sicherheit“. Hier muss nun die oben genannte Option „Unbekannte
+        Herkunft von Apps zulassen“ aktiviert werden, die genaue Bezeichnung kann abweichen.</string>
+    <string name="help_operation">Bedienung</string>
+    <string name="help_login">Login</string>
+    <string name="help_login_text">Um die RTStreaming App nutzen zu können, müssen sie sich zunächst auf der
+        RegioTainment Webseite einen Benutzeraccount anlegen. Mit den dort angelegten Login-Daten, können
+        Sie sich nun bei der RTStreaming App anmelden. Dazu müssen Sie lediglich Ihre Emailadresse und ihr
+        Passwort eintragen. Des Weiteren haben Sie die Möglichkeit, die Option „Eingeloggt bleiben“ anzuwählen,
+        sodass Sie sich nicht jedes Mal erneut einloggen müssen.</string>
+    <string name="help_mainmenu">Hauptmenü</string>
+    <string name="help_mainmenu_text">Im Hauptmenü haben Sie die Möglichkeit, auf verschiedene Programme sowie einer
+        Mediathek zuzugreifen. Um mehr Informationen zu einem Programm zu erhalten, tippen Sie auf die drei Punkte
+        in der oberen rechten Ecke des jeweiligen Programms.</string>
+    <string name="help_settings">Einstellungen</string>
+    <string name="help_settings_Landscape">Querformat-Modus</string>
+    <string name="help_settings_Landscape_text">Aktivieren Sie den Querformat-Modus, wenn sie wünschen, dass die Videos
+        ausschließlich im Querformat abgespielt werden. Ist der Querformat-Modus nicht aktiviert, können Sie zwischen Hoch-
+        und Querformat wechseln, indem Sie Ihr Mobiltelefon drehen. Dazu muss allerdings die „Autodreh“-Option in den
+        Einstellungen Ihres Handys aktiviert sein.</string>
+    <string name="help_settings_wlan">Nur WLAN</string>
+    <string name="help_settings_wlan_text">Wenn Sie wünschen, dass der Stream nur bei einer aktiven WLAN-Verbindung geladen wird,
+        so aktivieren Sie die Option „Nur WLAN“. Eine Wiedergabe des Stream über Mobile Daten ist somit nicht mehr möglich. Dies
+        ist von Vorteil, wenn Sie nur über ein geringes Datenvolumen verfügen. Ist das WLAN deaktiviert, so werden Sie mit einer
+        Meldung darauf hingewiesen, und können es so aktivieren.</string>
+    <string name="help_settings_email">E-Mail Verlauf löschen</string>
+    <string name="help_settings_email_text">Um den Verlauf der Email-Adressen, mit denen sich bereits eingeloggt wurde und die
+        somit auf der Login-Seite als Vorschläge erscheinen, zu löschen, tippen Sie auf „E-Mail Verlauf löschen“.</string>
+    <string name="help_errormessages">Fehlermeldungen</string>
+    <string name="help_errormessages_nowlan">WLAN ist ausgeschaltet</string>
+    <string name="help_errormessages_nowlan_text">Die Meldung, dass das WLAN ausgeschaltet ist, erscheint dann, wenn die „Nur WLAN“-Option
+        aktiviert ist, und das WLAN des Mobiltelefons ausgeschaltet ist. Die Fehlermeldung bietet die Möglichkeit, das WLAN anzuschalten</string>
+    <string name="help_errormessages_nointernet">Kein Internet</string>
+    <string name="help_errormessages_nointernet_text">Erscheint die Meldung, dass kein Internet verfügbar ist, so kann die App weder über WLAN noch
+        über Mobile Daten auf das Internet zugreifen. Ein Grund kann zum einen sein, dass das WLAN sowie die Mobilen Daten des Geräts deaktiviert
+        sind. Zum anderen kann es aber auch sein, dass das Telefon keinen Empfang hat.</string>
+
 </resources>

@@ -3,6 +3,7 @@ package de.codematch.naoray.media_player_app;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -154,6 +155,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(this, CreditsActivity.class));
                 break;
             case R.id.menu_item_hilfe:
+                startActivity(new Intent(this, HelpActivity.class));
+
                 break;
         }
 
