@@ -117,7 +117,7 @@
     <string name="help_errormessages_nowlan">WLAN ist ausgeschaltet</string>
     <string name="help_errormessages_nowlan_text">Die Meldung, dass das WLAN ausgeschaltet ist, erscheint dann, wenn die „Nur WLAN“-Option
         aktiviert ist, und das WLAN des Mobiltelefons ausgeschaltet ist. Die Fehlermeldung bietet die Möglichkeit, das WLAN anzuschalten</string>
-    <string name="help_errormessages_nointernet">Kein Internet</string>
+    <string name="help_errormessages_nointernet">No Internet</string>
     <string name="help_errormessages_nointernet_text">Erscheint die Meldung, dass kein Internet verfügbar ist, so kann die App weder über WLAN noch
         über Mobile Daten auf das Internet zugreifen. Ein Grund kann zum einen sein, dass das WLAN sowie die Mobilen Daten des Geräts deaktiviert
         sind. Zum anderen kann es aber auch sein, dass das Telefon keinen Empfang hat.</string>
