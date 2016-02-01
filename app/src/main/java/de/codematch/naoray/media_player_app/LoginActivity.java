@@ -304,7 +304,7 @@ public class LoginActivity extends AppCompatActivity {
                     parameters.put("Username", x);
                     parameters.put("pw", AES.encrypt(mPassword));
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                    String url = "http://naoray.pf-control.de/jsonresponse/index.php";
+                    String url = "http://vu2223.bernd.php-friends.de/regiotainment/";
 
 
                     LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
