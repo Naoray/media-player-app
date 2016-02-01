@@ -32,6 +32,10 @@
             android:label="@string/title_activity_mediathek"
             android:parentActivityName=".MainMenuActivity" />
         <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help"
+            android:parentActivityName=".MainMenuActivity" />
+        <activity
             android:name=".CreditsActivity"
             android:label="@string/title_activity_credtis"
             android:parentActivityName=".MainMenuActivity" />
