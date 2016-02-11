@@ -6,6 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background_color</item>
+        <item name="actionOverflowMenuStyle">@style/OptionsMenuTheme</item>
+    </style>
+
+    //Here the background color of the OverflowOptionsMenu can be changed
+
+    <style name="OptionsMenuTheme" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@color/background_color</item>
     </style>
 
 </resources>

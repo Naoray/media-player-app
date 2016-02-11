@@ -7,6 +7,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new PrefsFragment()).commit();
         setupActionBar();
+        //Here the background color of the SettingsActivity can be changed
+        getListView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.background_color));
     }
 
     /**

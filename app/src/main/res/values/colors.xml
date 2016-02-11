@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#e53935</color>
     <color name="colorAccent">#6200ea</color>
 
-    <color name="background_color">#e0e0e0</color>
+    <color name="background_color">#ffffff</color>
     <color name="videoViewBackground">#000000</color>
 </resources>

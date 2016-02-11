@@ -70,7 +70,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 break;
             //Mediathek
             case 4:
-                Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+                intent = new Intent(MainMenuActivity.this, MediathekActivity.class);
+                //Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
                 break;
             default:
                 Toast.makeText(MainMenuActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();

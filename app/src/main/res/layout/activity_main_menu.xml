@@ -3,7 +3,6 @@
     android:id="@+id/recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
     android:padding="3dp"
     android:scrollbars="vertical" />
 
