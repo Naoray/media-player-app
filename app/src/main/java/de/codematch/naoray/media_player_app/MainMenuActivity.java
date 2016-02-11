@@ -154,7 +154,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(this, CreditsActivity.class));
                 break;
             case R.id.menu_item_hilfe:
-                break;
+                startActivity(new Intent(this, HelpActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
