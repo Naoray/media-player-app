@@ -35,7 +35,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -225,11 +224,8 @@ public class LoginActivity extends AppCompatActivity {
      * Adds the history-list of used e-mails to the dropdown menu for the e-mail field
      */
     private void addEmailsToAutoComplete() {
-        emailAutocompleteList = spref.getStringSet("emailAutocompleteList", null);
-        if (emailAutocompleteList == null) {
-            emailAutocompleteList = new HashSet<>();
-        }
-        List<String> newList = new ArrayList<>(emailAutocompleteList);
+        emailAutocompleteList = spref.getStringSet("emailAutocompleteList", new HashSet<String>());
+        ArrayList<String> newList = new ArrayList<>(emailAutocompleteList);
         if (!newList.isEmpty()) {
             //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
             ArrayAdapter<String> adapter =
@@ -409,19 +405,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         /**
-         * Adds the new verified E-Mail Address to the List of used E-Mails
+         * Adds the new verified e-mail address to the List of used e-mails (history)
          */
         protected void addEmailToAutocompleteList() {
 
-            /*We have to copy the existing E-Mail-History into a new list, in order to be able to add a new list to
-            the SharedPreferences every time to save the newest entry (working with the reference doesnt work)*/
-            Set<String> newList = new HashSet<>();
-            for (String s : emailAutocompleteList) {
-                newList.add(s);
-            }
-            newList.add(mEmail);
-            SharedPreferences.Editor editor = spref.edit();
-            editor.putStringSet("emailAutocompleteList", newList);
+            emailAutocompleteList.add(mEmail);
+            editor.putStringSet("emailAutocompleteList", emailAutocompleteList);
             editor.apply();
         }
     }
