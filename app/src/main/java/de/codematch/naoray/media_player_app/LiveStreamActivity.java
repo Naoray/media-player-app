@@ -54,12 +54,13 @@ public class LiveStreamActivity extends AppCompatActivity {
         }
 
         //WLAN-Check
-        sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        // checks if the Wifi-only option is turned on
         String WLANPreferencesKey = getString(R.string.wlan_preferences_key);
         Boolean wlancheck = sPrefs.getBoolean(WLANPreferencesKey, false);
 
         connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        // checks if the Wifi-only Option is turned on
+
         if (wlancheck) {
 
             wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
