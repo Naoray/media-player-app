@@ -1,6 +1,5 @@
 package de.codematch.naoray.media_player_app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,9 +17,6 @@ import java.util.ArrayList;
 public class MainMenuActivity extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
-    GridView gridView;
-    Context context;
-    private String[] menuItems = new String[2];
     private Intent intent;
     private SharedPreferences sPrefs;
     private RecyclerView recycler;
