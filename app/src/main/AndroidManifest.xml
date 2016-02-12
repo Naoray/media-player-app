@@ -23,13 +23,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainMenuActivity"
+            android:label="@string/title_activity_main_menu" />
+        <activity
+            android:name=".CardDescriptionActivity"
+            android:parentActivityName=".MainMenuActivity" />
+        <activity
             android:name=".LiveStreamActivity"
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".MainMenuActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".MediathekActivity"
-            android:label="@string/title_activity_mediathek"
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
             android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".HelpActivity"
@@ -40,19 +46,8 @@
             android:label="@string/title_activity_credtis"
             android:parentActivityName=".MainMenuActivity" />
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainMenuActivity" />
-
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainMenuActivity" />
-
-        <activity
-            android:name=".MainMenuActivity"
-            android:label="@string/title_activity_main_menu" />
-        <activity
-            android:name=".CardDescriptionActivity"
+            android:name=".MediathekActivity"
+            android:label="@string/title_activity_mediathek"
             android:parentActivityName=".MainMenuActivity" />
     </application>
 
