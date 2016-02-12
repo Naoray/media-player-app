@@ -299,9 +299,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     // Volley-Code
                     HashMap<String, String> parameters = new HashMap<>();
-                    String x = AES.encrypt(mEmail);
-                    Log.d("User", x);
-                    parameters.put("Username", x);
+                    parameters.put("Username", AES.encrypt(mEmail));
                     parameters.put("pw", AES.encrypt(mPassword));
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                     String url = "http://vu2223.bernd.php-friends.de/regiotainment/";
