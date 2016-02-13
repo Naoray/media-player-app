@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     protected Set<String> emailAutocompleteList;
     protected SharedPreferences.Editor editor;
     protected DatabaseManager db;
-    CheckBox mKeepMeLoggedInCheckBox;
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -58,7 +59,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private CheckBox mKeepMeLoggedInCheckBox;
     private Boolean keepMeLoggedInChecked = false;
+    private TextInputLayout textInputLayoutEmail, textInputLayoutPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,11 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+        textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
+        textInputLayoutPassword = (TextInputLayout) findViewById(R.id.textInputLayoutPassword);
+        //setErrorEnabled(true) makes sure that there is space to be able to show an error under the EditText field without having to change the layout
+        textInputLayoutEmail.setErrorEnabled(true);
+        textInputLayoutPassword.setErrorEnabled(true);
 
         // calling DatabaseManager to Init DB
         db = new DatabaseManager(this);
@@ -97,10 +105,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        this.addEmailsToAutoComplete();
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
+        mSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -109,6 +115,10 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        this.addEmailsToAutoComplete();
+
+
     }
 
     /**
@@ -122,8 +132,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+        textInputLayoutEmail.setError(null);
+        textInputLayoutPassword.setError(null);
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
@@ -134,15 +144,15 @@ public class LoginActivity extends AppCompatActivity {
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+            textInputLayoutEmail.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            textInputLayoutEmail.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
         } else if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
+            textInputLayoutPassword.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
         }
@@ -379,7 +389,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-
+            //showProgress(false) has to be called here already, otherwise the requestFocus-method in else-path doesn't always work, because it collides with the running progressBar
+            showProgress(false);
             if (success) {
                 editor.putString(getString(R.string.e_mail_address_preferences_key), mEmail);
                 editor.apply();
@@ -392,10 +403,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 login();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                textInputLayoutPassword.setError(getString(R.string.error_incorrect_password));
+                textInputLayoutPassword.requestFocus();
             }
-            showProgress(false);
         }
 
         @Override
