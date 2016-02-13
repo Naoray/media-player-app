@@ -9,7 +9,7 @@
     <string name="title_activity_credtis">Credits</string>
 
     <!-- Strings related to MainMenuActivity -->
-    <string name="welcome_text">Guten Tag</string>
+    <string name="welcome_text">Hallo</string>
     <string name="wish_text">Wir wünschen Ihnen viel Spaß mit der App!</string>
     <string name="app_closing_warning">Noch EINMAL drücken zum Verlassen der App</string>
     <string name="not_available">Nicht verfügbar!</string>
@@ -49,7 +49,7 @@
     <string name="action_sign_in_short">Login</string>
     <string name="error_invalid_email">Diese E-Mail Adresse ist ungültig!</string>
     <string name="error_incorrect_password">Dieses Passwort ist ungültig!</string>
-    <string name="error_field_required">Dieses Feld ist erforderlich</string>
+    <string name="error_field_required">Dieses Feld ist erforderlich!</string>
     <string name="stay_logged_in">Eingeloggt bleiben</string>
 
     <!-- Strings related to no activated WLAN Dialog -->
