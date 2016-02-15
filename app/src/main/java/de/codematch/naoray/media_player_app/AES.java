@@ -19,6 +19,7 @@ public class AES {
     protected static final String key = "1234567890123456";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
    /* public static void main(String[] args) {
         try {
 
@@ -46,6 +47,8 @@ public class AES {
             throws GeneralSecurityException, UnsupportedEncodingException {
 
 =======
+=======
+>>>>>>> master
     /**
      * Encrypts the text with AES/CBC/PKCS5Padding
      *
@@ -55,9 +58,13 @@ public class AES {
      * @throws UnsupportedEncodingException
      */
     public static String encrypt(String text) throws GeneralSecurityException, UnsupportedEncodingException {
+<<<<<<< HEAD
 >>>>>>> master
 
         //Instance to encrypt
+=======
+
+>>>>>>> master
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
         //Check length of the password
@@ -82,6 +89,7 @@ public class AES {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Decrypt a String with AES-Algorithm
      *
      * @param text Text, which has to be decrypted
@@ -89,6 +97,8 @@ public class AES {
      * @throws GeneralSecurityException
      * @throws UnsupportedEncodingException
 =======
+=======
+>>>>>>> master
      * Decrypts the text with AES/CBC/PKCS5Padding
      *
      * @param text for decryption
@@ -96,6 +106,9 @@ public class AES {
      * @throws GeneralSecurityException
      * @throws UnsupportedEncodingException
      * @Info: currently not used
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
      */
     public static String decrypt(String text)
