@@ -36,7 +36,7 @@ public class CardDescriptionActivity extends AppCompatActivity {
         // Farbe der Stausbar setzen
         // Offen: das die Stautusbar einen Tick dunkler ist
         Window window = this.getWindow();
-        window.setStatusBarColor(darker(Color.parseColor(color), 0.001f));
+        window.setStatusBarColor(darker(Color.parseColor(color), 0.8f));
     }
 
     /**

@@ -7,6 +7,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new PrefsFragment()).commit();
         setupActionBar();
+        //Here the background color of the SettingsActivity can be changed
+        getListView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.background_color));
     }
 
     /**
@@ -59,23 +62,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
         return super.onMenuItemSelected(featureId, item);
     }
-
-/*    //Mit dem Rückgabewert "true" wird die Einstellung übernommen, mit "false" wird sie verworfen
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object object) {
-        if (preference == benutzernamePreference) {
-            if (object.toString().isEmpty()) {
-                Toast.makeText(this, getString(R.string.LeererBenutzernameEingegebenBenachrichtigung), Toast.LENGTH_LONG).show();
-                return false;
-            } else {
-                //Mit String.format wird hier die Variable %1$s im String "Einstellung %1$s wurde geändert" durch den Titel der Einstellung ersetzt
-                Toast.makeText(this, String.format(getString(R.string.BenutzernamenÄnderungsBenachrichtigung), getString(R.string.benutzername_preferences_title)), Toast.LENGTH_LONG).show();
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }*/
 
     public static class PrefsFragment extends PreferenceFragment {
 
