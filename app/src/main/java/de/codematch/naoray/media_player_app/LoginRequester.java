@@ -28,6 +28,13 @@ public class LoginRequester extends Request<JSONObject>{
     private Listener<JSONObject> listener;
     private Map<String, String> params;
 
+    /**
+     * Constructor
+     * @param url url of the php-script which validates the request
+     * @param params Parameters, which will be sent to Server
+     * @param reponseListener
+     * @param errorListener
+     */
     public LoginRequester(String url, Map<String, String> params,
                           Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
@@ -35,6 +42,14 @@ public class LoginRequester extends Request<JSONObject>{
         this.params = params;
     }
 
+    /**
+     * Constructor
+     * @param method
+     * @param url url of the php-script which validates the request
+     * @param params Parameters, which will be sent to Server
+     * @param reponseListener
+     * @param errorListener
+     */
     public LoginRequester(int method, String url, Map<String, String> params,
                           Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
@@ -42,15 +57,34 @@ public class LoginRequester extends Request<JSONObject>{
         this.params = params;
     }
 
+    /**
+     * Returns a Map of parameters to be used for a POST or PUT request.
+     * @return Map<String, String>
+     * @throws com.android.volley.AuthFailureError
+     */
     @Override
     protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
         return params;
     };
+
+    /**
+     * Perform delivery of the parsed
+     * response to their listeners.  The given response is guaranteed to
+     * be non-null; responses that fail to parse are not delivered.
+     * @param response
+     */
      @Override
     protected void deliverResponse(JSONObject response) {
         listener.onResponse(response);
     }
 
+
+    /**
+     * Parse the raw network response
+     * and return an appropriate response type
+     * @param response Response from the network
+     * @return The parsed response, or null in the case of an error
+     */
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
         try {
