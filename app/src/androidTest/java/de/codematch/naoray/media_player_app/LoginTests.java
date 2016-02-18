@@ -1,7 +1,6 @@
 package de.codematch.naoray.media_player_app;
 
 import android.app.Instrumentation;
-import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.view.KeyEvent;
@@ -9,9 +8,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-/**
- * Created by Schmidt on 25.12.2015.
- */
 public class LoginTests extends ActivityInstrumentationTestCase2<LoginActivityOriginal> {
 
     public LoginTests () {
@@ -35,7 +31,7 @@ public class LoginTests extends ActivityInstrumentationTestCase2<LoginActivityOr
     public void testLogin(){
 
 
-        startLogin("nico@web.de", "admin1");
+        startLogin("test@test.de", "test");
 
 
         // Set up an ActivityMonitor
