@@ -73,12 +73,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         // for debugging purposes
         query = getReadableDatabase().query(TABLE_USER, null, null, null, null, null, null);
-        Log.d("beforelog", "userinput");
         while (query.moveToNext()) {
-            Log.d("while", "userinput");
             Log.d("Ausgabe", query.getString(1) + " " + query.getString(2));
         }
-        Log.d("afterlog", "userinput");
     }
 
     /**
