@@ -36,7 +36,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Takes String Query -> work like normal SQL
+        // Takes String Query -> work like normal SQL IF NOT EXISTS
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_USER + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USERNAME + " TEXT, " + KEY_PASSWORD + " TEXT)");
     }
 
@@ -73,9 +73,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         // for debugging purposes
         query = getReadableDatabase().query(TABLE_USER, null, null, null, null, null, null);
+        Log.d("beforelog", "userinput");
         while (query.moveToNext()) {
+            Log.d("while", "userinput");
             Log.d("Ausgabe", query.getString(1) + " " + query.getString(2));
         }
+        Log.d("afterlog", "userinput");
     }
 
     /**
