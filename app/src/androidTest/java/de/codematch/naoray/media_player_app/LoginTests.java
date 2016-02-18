@@ -26,7 +26,7 @@ public class LoginTests extends ActivityInstrumentationTestCase2<LoginActivityOr
     }
 
     /**
-     * tests if the Login works and the user passes tp the MainMenuActivity
+     * tests if the Login works and the user passes to the MainMenuActivity
      */
     public void testLogin(){
 
