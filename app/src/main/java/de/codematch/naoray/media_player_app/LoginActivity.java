@@ -277,6 +277,8 @@ public class LoginActivity extends AppCompatActivity {
         private final String mPassword;
         //Boolean variable for checking if a server response arrived
         public boolean responsebool = false;
+        private String encryptMail;
+        private String encryptPassword;
         private Boolean verified = false;
 
         UserLoginTask(String email, String password) {
@@ -305,8 +307,10 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     // Volley-Code
                     HashMap<String, String> parameters = new HashMap<>();
-                    parameters.put("Username", AES.encrypt(mEmail));
-                    parameters.put("pw", AES.encrypt(mPassword));
+                    encryptMail = AES.encrypt(mEmail);
+                    encryptPassword = AES.encrypt(mPassword);
+                    parameters.put("Username", encryptMail);
+                    parameters.put("pw", encryptPassword);
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                     String url = "http://vu2223.bernd.php-friends.de/regiotainment/";
 
@@ -362,14 +366,14 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (verified) {
-                    db.handleUserInput(mEmail, mPassword);
+                    Log.d("beforHandle", "user Input");
+                    db.handleUserInput(encryptMail, encryptPassword);
                     //if the sever does not respond in the expected time, the app checks the user data with the local database
                 } else if (!responsebool) {
-                    verified = db.verifyPassword(mEmail, mPassword);
+                    verified = db.verifyPassword(encryptMail, encryptPassword);
                 }
-
             } else {
-                verified = db.verifyPassword(mEmail, mPassword);
+                verified = db.verifyPassword(encryptMail, encryptPassword);
                 // This makes sure that the loading animation is shown for a certain time
                 try {
                     Thread.sleep(1500);
