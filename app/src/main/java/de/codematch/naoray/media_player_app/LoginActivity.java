@@ -33,6 +33,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -295,20 +297,29 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         /**
-         * Does an asynchronous Task and triggers the server communication
+         * Does an asynchronous Task and triggers the server communication or uses the local database
          *
          * @param params provided from AsyncTask
          * @return true if authentication is successful
          */
         @Override
         protected Boolean doInBackground(Void... params) {
+
+            // encrypt e-mail and password
+            try {
+                encryptMail = AES.encrypt(mEmail);
+                encryptPassword = AES.encrypt(mPassword);
+            } catch (GeneralSecurityException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
             // if internetConnection exists -> communicate with server + update local database if necessary (new User or new Password)
             if (checkInternetConnection()) {
                 try {
                     // Volley-Code
                     HashMap<String, String> parameters = new HashMap<>();
-                    encryptMail = AES.encrypt(mEmail);
-                    encryptPassword = AES.encrypt(mPassword);
                     parameters.put("Username", encryptMail);
                     parameters.put("pw", encryptPassword);
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
@@ -347,7 +358,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-                    // Request in die queue legen
+                    // Add request to the queue
                     queue.add(jsObjRequest);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -366,13 +377,14 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (verified) {
-                    Log.d("beforHandle", "user Input");
                     db.handleUserInput(encryptMail, encryptPassword);
                     //if the sever does not respond in the expected time, the app checks the user data with the local database
                 } else if (!responsebool) {
                     verified = db.verifyPassword(encryptMail, encryptPassword);
                 }
-            } else {
+            }
+            //no internetConnection exists -> use local database to verify e-mail and password
+            else {
                 verified = db.verifyPassword(encryptMail, encryptPassword);
                 // This makes sure that the loading animation is shown for a certain time
                 try {
@@ -381,7 +393,6 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
             return verified;
         }
 
