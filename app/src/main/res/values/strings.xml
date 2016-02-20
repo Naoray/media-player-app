@@ -62,4 +62,8 @@
     <string name="accept_button">Okay</string>
     <string name="noConnectionMessagePart1">Unable to connect to the internet.</string>
     <string name="noConnectionMessagePart2">Make sure that an internet connection exists and try again.</string>
+
+    <!-- Strings related to Video not available Dialog -->
+    <string name="videoNotAvailableAccept_button">Okay</string>
+    <string name="videoNotAvailablePart1">Unable to load the video.</string>
 </resources>

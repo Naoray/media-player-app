@@ -62,4 +62,8 @@
     <string name="accept_button">Okay</string>
     <string name="noConnectionMessagePart1">Es kann keine Verbindung mit dem Internet hergestellt werden.</string>
     <string name="noConnectionMessagePart2">Stellen Sie sicher, dass eine Internetverbindung besteht und versuchen sie es erneut.</string>
+
+    <!-- Strings related to Video not available Dialog -->
+    <string name="videoNotAvailableAccept_button">Okay</string>
+    <string name="videoNotAvailablePart1">Das Video konnte nicht geladen werden.</string>
 </resources>

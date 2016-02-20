@@ -24,14 +24,12 @@ public class LiveStreamActivity extends AppCompatActivity {
 
 
     // Declare variables
+    Thread t;
     ProgressDialog pDialog;
     WifiManager wifiManager;
     ConnectivityManager connManager;
     VideoView videoview;
-    // Insert your Video URL
-    String VideoURL = "http://regiotainment.mni.thm.de:3000/videostorage/playliststorage/5623ca95e6cc3b74106e1bba/mainpanel/streams.m3u8";
-    //"http://regiotainment.mni.thm.de/MobileVideos/Regiotainment.mp4";
-    //"http://www.androidbegin.com/tutorial/AndroidCommercial.3gp";
+    String VideoURL;
     private SharedPreferences sPrefs;
 
     @Override
@@ -39,6 +37,7 @@ public class LiveStreamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Get the layout from video_main.xml
         setContentView(R.layout.activity_live_stream);
+        VideoURL = getIntent().getStringExtra("URL");
 
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -151,6 +150,7 @@ public class LiveStreamActivity extends AppCompatActivity {
             Uri video = Uri.parse(VideoURL);
             videoview.setMediaController(mediacontroller);
             videoview.setVideoURI(video);
+            startTimer();
 
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -186,7 +186,7 @@ public class LiveStreamActivity extends AppCompatActivity {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
 
@@ -195,6 +195,61 @@ public class LiveStreamActivity extends AppCompatActivity {
         noWLAN();
     }
 
+    /**
+     * Methode, die einen Timer von 10 Sekunden startet.
+     * Der Timer wird mittels eines weiteren Threads abgebildet.
+     */
+    public void startTimer() {
+        t = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    // 10 Sekunden
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                killThread();
+                stopBuffering();
+            }
+        });
+        t.start();
+    }
+
+    /**
+     * Methode zum Prüfen, ob ein Teil des Videos gepuffert wurde,
+     * oder ob das Video abgespielt wird.
+     * Ist beides nicht der Fall, wird ein Dialog angezeigt, in dem steht, dass das Video
+     * nicht geladen werden konnte.
+     * Anschließend wird die Activity beendet und es wird zurück ins Hauptmenü gesprungen.
+     */
+    public void stopBuffering() {
+        if (videoview.getBufferPercentage() == 0 && !videoview.isPlaying()) {
+            DialogFragment videoNotAvailableDialog = new VideoNotAvailableDialogFragment();
+            //makes sure, that the dialog is NOT closed after the user clicks on the back button in the navigation bar
+            videoNotAvailableDialog.setCancelable(false);
+            videoNotAvailableDialog.show(getFragmentManager(), "NoVideo");
+        }
+    }
+
+    /**
+     * Methode zum Beenden des Timer-Threads.
+     */
+    public void killThread() {
+        if (t != null) {
+            t.interrupt();
+            t = null;
+        }
+    }
+
+    /**
+     * Methode, die aufgerufen wird, wenn auf "Zurück" geklickt wird.
+     * Dabei wird geprüft, ob der Thread noch vorhanden ist, dann wird er beendet.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.killThread();
+    }
 
     //Notification- und Navigation-Leiste werden ausgeblendet. Die Activity geht somit quasi in einen Vollbild-Modus
     //Wischt der User aus Notification- bzw. Navigation-Leiste, so werden diese für einen kurzen Moment wieder eingeblendet
