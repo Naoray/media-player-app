@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
         textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
         textInputLayoutPassword = (TextInputLayout) findViewById(R.id.textInputLayoutPassword);
-        //setErrorEnabled(true) makes sure that there is space to be able to show an error under the EditText field without having to change the layout
+        //setErrorEnabled(true) makes sure that there is space to be able to show an error below the EditText field without having to change the layout
         textInputLayoutEmail.setErrorEnabled(true);
         textInputLayoutPassword.setErrorEnabled(true);
 

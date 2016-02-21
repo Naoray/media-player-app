@@ -46,47 +46,26 @@ public class MainMenuActivity extends AppCompatActivity {
      * Methode die aufgerufen wird, wenn auf eine Karte geklickt wird
      */
     public void onClick(int position) {
-        switch (position) {
-            //Programm1
-            case 0:
-                intent = new Intent(MainMenuActivity.this, LiveStreamActivity.class);
-                break;
-            //Programm2
-            case 1:
-                Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-                break;
-            //Programm3
-            case 2:
-                Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-                break;
-            //Programm4
-            case 3:
-                Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-                break;
-            //Mediathek
-            case 4:
-                intent = new Intent(MainMenuActivity.this, MediathekActivity.class);
-                //Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                Toast.makeText(MainMenuActivity.this, "An Error occurred", Toast.LENGTH_LONG).show();
+        if (cards.get(position).getUrl() != null) {
+            intent = new Intent(MainMenuActivity.this, LiveStreamActivity.class);
+            intent.putExtra("URL", cards.get(position).getUrl());
+        } else if (cards.get(position).getTitel().equals("Mediathek")) {
+            intent = new Intent(MainMenuActivity.this, MediathekActivity.class);
+        } else {
+            Toast.makeText(MainMenuActivity.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         }
-
         if (intent != null) {
             startActivity(intent);
             intent = null;
         }
-
-    }
+        }
 
     /**
      * Methode die aufgerufen wird, wenn auf die drei Punkte einer Karte geklickt wird
      */
     public void cardDescription(int position) {
         intent = new Intent(MainMenuActivity.this, CardDescriptionActivity.class);
-        intent.putExtra("CardTitle", cards.get(position).getTitel());
-        intent.putExtra("CardLargeDescription", cards.get(position).getLargeDescritption());
-        intent.putExtra("CardColor", cards.get(position).getBackground());
+        intent.putExtra("CardObject", cards.get(position));
 
         if (intent != null) {
             startActivity(intent);
@@ -107,11 +86,23 @@ public class MainMenuActivity extends AppCompatActivity {
                 "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung." +
                 "Dies ist eine lange Beschreibung. Dies ist eine lange Beschreibung.";
 
-        cards.add(new Card("Hauptprogramm", "Regiotainment", R.drawable.test, "#FF4081", largeDescription));
-        cards.add(new Card("Programm 2", "Beschreibung 2", "#1976D2", largeDescription));
-        cards.add(new Card("Programm 3", "Beschreibung 3", "#FF4081", largeDescription));
-        cards.add(new Card("Programm 4", "Beschreibung 4", "#000000", largeDescription));
-        cards.add(new Card("Mediathek", "Videos in Mediathek", "#CA0FEE", largeDescription));
+       /*
+        - String titel, String description, int image, String background, String largeDescritption, String url
+        ODER
+        - String titel, String description, String background, String largeDescritption, String url
+         */
+        // Karte mit der URL von Regiotainment
+        cards.add(new Card("Hauptprogramm", "Regiotainment",
+                R.drawable.test, "#FF4081", largeDescription,
+                "http://regiotainment.mni.thm.de:3000/videostorage/playliststorage/5623ca95e6cc3b74106e1bba/mainpanel/streams.m3u8"));
+        // Karte mit kaputter URL, um zu zeigen, wie der timeout beim Puffern funktioniert.
+        cards.add(new Card("Programm 2", "Beschreibung 2",
+                "#1976D2", largeDescription,
+                "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_xxxmaster_the_internet_512kb.mp4"));
+        // Ab hier Dummy-Karten, nur zur Anzeige im Hauptmenü
+        cards.add(new Card("Programm 3", "Beschreibung 3", "#FF4081", largeDescription, null));
+        cards.add(new Card("Programm 4", "Beschreibung 4", "#000000", largeDescription, null));
+        cards.add(new Card("Mediathek", "Videos in Mediathek", "#CA0FEE", largeDescription, null));
     }
 
     //Fügt das Menü in die Activity ein
