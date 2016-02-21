@@ -59,10 +59,14 @@
     <string name="activateWlanMessagePart2">WLAN jetzt aktivieren?</string>
     <string name="noWlan">Kein WLAN-Netzwerk verfügbar</string>
 
-    <!-- Strings related to no connection Dialog -->
+    <!-- Strings related to NoConnection-Dialog -->
     <string name="accept_button">Okay</string>
     <string name="noConnectionMessagePart1">Es kann keine Verbindung mit dem Internet hergestellt werden.</string>
     <string name="noConnectionMessagePart2">Stellen Sie sicher, dass eine Internetverbindung besteht und versuchen sie es erneut.</string>
+
+    <!-- Strings related to VideoNotAvailable-Dialog -->
+    <string name="videoNotAvailableAccept_button">Okay</string>
+    <string name="videoNotAvailablePart1">Das Video konnte nicht geladen werden.</string>
 
     <!-- Strings related to HelpActivity -->
     <string name="help_installation">Installation</string>

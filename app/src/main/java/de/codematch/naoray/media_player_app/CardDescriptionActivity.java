@@ -12,15 +12,17 @@ public class CardDescriptionActivity extends AppCompatActivity {
     String titel;
     String largeDescription;
     String color;
+    Card card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_description);
 
-        titel = getIntent().getStringExtra("CardTitle");
-        largeDescription = getIntent().getStringExtra("CardLargeDescription");
-        color = getIntent().getStringExtra("CardColor");
+        card = getIntent().getParcelableExtra("CardObject");
+        titel = card.getTitel();
+        largeDescription = card.getLargeDescritption();
+        color = card.getBackground();
 
         // Titel setzen
         this.setTitle(titel);
