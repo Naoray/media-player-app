@@ -15,7 +15,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -54,29 +53,29 @@ public class LiveStreamActivity extends AppCompatActivity {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
 
-        //WLAN-Check
+        //WiFi-Check
 
         // checks if the Wifi-only option is turned on
-        String WLANPreferencesKey = getString(R.string.wlan_preferences_key);
-        Boolean wlancheck = sPrefs.getBoolean(WLANPreferencesKey, false);
+        String WiFiPreferencesKey = getString(R.string.wifi_preferences_key);
+        Boolean wificheck = sPrefs.getBoolean(WiFiPreferencesKey, false);
 
         connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (wlancheck) {
+        if (wificheck) {
 
             wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             // checks if Wifi is enabled on the device
             if (!wifiManager.isWifiEnabled()) {
-                // ask, if WLAN should be activated
-                DialogFragment wlanActivateDialog = new WLANactivateDialogFragment();
+                // ask, if WiFi should be activated
+                DialogFragment wifiActivateDialog = new WiFiActivateDialogFragment();
                 //makes sure, that the dialog is NOT closed after the user clicks on the back button in the navigation bar
-                wlanActivateDialog.setCancelable(false);
-                wlanActivateDialog.show(getFragmentManager(), "WLAN");
+                wifiActivateDialog.setCancelable(false);
+                wifiActivateDialog.show(getFragmentManager(), "WiFi");
             } else {
-                if (checkWLANConnection()) {
+                if (checkWiFiConnection()) {
                     startStream();
                 } else {
-                    noWLAN();
+                    noWiFi();
                 }
             }
         } else {
@@ -97,7 +96,7 @@ public class LiveStreamActivity extends AppCompatActivity {
      *
      * @return true if Connection exists, false if no connection exists
      */
-    public boolean checkWLANConnection() {
+    public boolean checkWiFiConnection() {
         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
         if (activeNetwork != null) { // connected to the internet
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI &&
@@ -112,9 +111,9 @@ public class LiveStreamActivity extends AppCompatActivity {
     /**
      * calls a dialog to inform the user, that no Wifi-network is available
      */
-    public void noWLAN() {
+    public void noWiFi() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.noWlan)
+        builder.setMessage(R.string.noWiFi)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -176,14 +175,14 @@ public class LiveStreamActivity extends AppCompatActivity {
     /**
      * activates the Wifi on the device, waits up to 10 seconds for a Wifi to connect.
      * if a Connection is available, then startStream() is called and this method returns;
-     * If no connection is available within 10 seconds, noWLAN() is called to inform the user,
+     * If no connection is available within 10 seconds, noWiFi() is called to inform the user,
      * the Stream will not start then
      */
-    public void activateWLAN() {
+    public void activateWiFi() {
         wifiManager.setWifiEnabled(true);
         int i = 0;
         while (i < 10) {
-            if (checkWLANConnection()) {
+            if (checkWiFiConnection()) {
                 startStream();
                 return;
             } else {
@@ -193,10 +192,9 @@ public class LiveStreamActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
             i++;
         }
-        noWLAN();
+        noWiFi();
     }
 
     /**
@@ -248,10 +246,8 @@ public class LiveStreamActivity extends AppCompatActivity {
     /**
      * Methode zum Beenden des BufferCheck-Threads
      */
-    public void killBufferCheckThread()
-    {
-        if (bufferCheck != null)
-        {
+    public void killBufferCheckThread() {
+        if (bufferCheck != null) {
             bufferCheck.interrupt();
             bufferCheck = null;
         }
@@ -272,38 +268,31 @@ public class LiveStreamActivity extends AppCompatActivity {
      * Überprüft, ob das gepufferte Material innerhalb 15 sekunden wächst, wenn nicht erscheint
      * eine Meldung und der User wird zum Hauptmenü weitergeleitet.
      */
-    public void checkBuffering()
-    {
+    public void checkBuffering() {
         position = videoview.getCurrentPosition();
         bufferCheck = new Thread(new Runnable() {
             public void run() {
-                while(bufferCheck != null)
-                {
+                while (bufferCheck != null) {
                     try {
                         Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
-
                     /*
                     * isPlaying return false if user has paused the video, it returns true if its playing
                     * or if it stopped because buffering was not able. Dialog appears when video is playing
                     * and video position has not changed last 10 seconds
                     */
-                    if(videoview.isPlaying() == true && position == videoview.getCurrentPosition())
-
-                        {
-                            DialogFragment videoNotAvailableDialog = new VideoNotAvailableDialogFragment();
-                            //makes sure, that the dialog is NOT closed after the user clicks on the back button in the navigation bar
-                            videoNotAvailableDialog.setCancelable(false);
-                            videoNotAvailableDialog.show(getFragmentManager(), "NoVideo");
-                            break;
-                        }
-                        else
-                        {
-                            position = videoview.getCurrentPosition();
-                        }
+                    if (videoview.isPlaying() == true && position == videoview.getCurrentPosition()) {
+                        DialogFragment videoNotAvailableDialog = new VideoNotAvailableDialogFragment();
+                        //makes sure, that the dialog is NOT closed after the user clicks on the back button in the navigation bar
+                        videoNotAvailableDialog.setCancelable(false);
+                        videoNotAvailableDialog.show(getFragmentManager(), "NoVideo");
+                        break;
+                    } else {
+                        position = videoview.getCurrentPosition();
+                    }
                     //}
                 }
 
@@ -330,7 +319,6 @@ public class LiveStreamActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
     }*/
-
 
 }
 

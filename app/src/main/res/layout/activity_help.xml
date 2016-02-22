@@ -227,7 +227,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView23"
                 android:layout_marginTop="10dp"
-                android:text="@string/help_settings_wlan"
+                android:text="@string/help_settings_wifi"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -236,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView24"
-                android:text="@string/help_settings_wlan_text"
+                android:text="@string/help_settings_wifi_text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -274,7 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView28"
-                android:text="@string/help_errormessages_nowlan"
+                android:text="@string/help_errormessages_nowifi"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -283,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView29"
-                android:text="@string/help_errormessages_nowlan_text"
+                android:text="@string/help_errormessages_nowifi_text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
