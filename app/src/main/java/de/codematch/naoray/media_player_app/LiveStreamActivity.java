@@ -158,7 +158,6 @@ public class LiveStreamActivity extends AppCompatActivity {
             startTimer();
 
         } catch (Exception e) {
-            Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
 
@@ -172,9 +171,6 @@ public class LiveStreamActivity extends AppCompatActivity {
                 checkBuffering();
             }
         });
-
-
-
     }
 
     /**
@@ -213,7 +209,6 @@ public class LiveStreamActivity extends AppCompatActivity {
                 try {
                     // 10 Sekunden
                     Thread.sleep(10000);
-                    Log.d("Timer", "Timer");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -248,8 +243,6 @@ public class LiveStreamActivity extends AppCompatActivity {
             t.interrupt();
             t = null;
         }
-
-
     }
 
     /**
@@ -259,7 +252,6 @@ public class LiveStreamActivity extends AppCompatActivity {
     {
         if (bufferCheck != null)
         {
-
             bufferCheck.interrupt();
             bufferCheck = null;
         }
@@ -276,26 +268,22 @@ public class LiveStreamActivity extends AppCompatActivity {
         this.killBufferCheckThread();
     }
 
-
     /**
      * Überprüft, ob das gepufferte Material innerhalb 15 sekunden wächst, wenn nicht erscheint
      * eine Meldung und der User wird zum Hauptmenü weitergeleitet.
      */
     public void checkBuffering()
     {
-
         position = videoview.getCurrentPosition();
         bufferCheck = new Thread(new Runnable() {
             public void run() {
-                while(!Thread.interrupted())
+                while(bufferCheck != null)
                 {
-
                     try {
                         Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Log.d("BufferCheck", "BufferCheck");
 
 
                     /*
