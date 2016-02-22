@@ -10,9 +10,9 @@
     <SwitchPreference
         android:disableDependentsState="false"
         android:icon="@mipmap/ic_network_wifi_black_24dp"
-        android:key="@string/wlan_preferences_key"
-        android:summary="@string/wlan_preferences_summary"
-        android:title="@string/wlan_preferences_title" />
+        android:key="@string/wifi_preferences_key"
+        android:summary="@string/wifi_preferences_summary"
+        android:title="@string/wifi_preferences_title" />
     <Preference
         android:icon="@mipmap/ic_delete_black_24dp"
         android:key="@string/delete_email_history_preferences_key"

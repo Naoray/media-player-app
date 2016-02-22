@@ -6,19 +6,16 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-/**
- * Created by Schmidt on 15.12.2015.
- */
-public class WLANactivateDialogFragment extends DialogFragment {
+public class WiFiActivateDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getString(R.string.activateWlanMessagePart1) + "\n" + getString(R.string.activateWlanMessagePart2))
-                .setPositiveButton(R.string.enableWLAN, new DialogInterface.OnClickListener() {
+        builder.setMessage(getString(R.string.activateWiFiMessagePart1) + "\n" + getString(R.string.activateWiFiMessagePart2))
+                .setPositiveButton(R.string.enableWiFi, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User wants to activate WLAN on device
-                        ((LiveStreamActivity) getActivity()).activateWLAN();
+                        // User wants to activate WiFi on device
+                        ((LiveStreamActivity) getActivity()).activateWiFi();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
