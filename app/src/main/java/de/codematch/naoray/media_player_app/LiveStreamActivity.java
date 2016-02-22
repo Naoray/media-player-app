@@ -25,12 +25,15 @@ public class LiveStreamActivity extends AppCompatActivity {
 
     // Declare variables
     Thread t;
+    Thread bufferCheck;
     ProgressDialog pDialog;
     WifiManager wifiManager;
     ConnectivityManager connManager;
     VideoView videoview;
     String videoURL;
+    int position = 0;
     private SharedPreferences sPrefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,24 +150,27 @@ public class LiveStreamActivity extends AppCompatActivity {
             mediacontroller.setAnchorView(videoview);
             // Get the URL from String VideoURL
             Uri video = Uri.parse(videoURL);
+
             videoview.setMediaController(mediacontroller);
             videoview.setVideoURI(video);
+
+
             startTimer();
 
         } catch (Exception e) {
-            Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
 
         videoview.requestFocus();
+
         videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             // Close the progress bar and play the video
             public void onPrepared(MediaPlayer mp) {
                 pDialog.dismiss();
                 videoview.start();
+                checkBuffering();
             }
         });
-
     }
 
     /**
@@ -230,12 +236,24 @@ public class LiveStreamActivity extends AppCompatActivity {
     }
 
     /**
-     * Methode zum Beenden des Timer-Threads.
+     * Methode zum Beenden des Timer-Threads
      */
     public void killThread() {
         if (t != null) {
             t.interrupt();
             t = null;
+        }
+    }
+
+    /**
+     * Methode zum Beenden des BufferCheck-Threads
+     */
+    public void killBufferCheckThread()
+    {
+        if (bufferCheck != null)
+        {
+            bufferCheck.interrupt();
+            bufferCheck = null;
         }
     }
 
@@ -247,7 +265,54 @@ public class LiveStreamActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         this.killThread();
+        this.killBufferCheckThread();
     }
+
+    /**
+     * Überprüft, ob das gepufferte Material innerhalb 15 sekunden wächst, wenn nicht erscheint
+     * eine Meldung und der User wird zum Hauptmenü weitergeleitet.
+     */
+    public void checkBuffering()
+    {
+        position = videoview.getCurrentPosition();
+        bufferCheck = new Thread(new Runnable() {
+            public void run() {
+                while(bufferCheck != null)
+                {
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    /*
+                    * isPlaying return false if user has paused the video, it returns true if its playing
+                    * or if it stopped because buffering was not able. Dialog appears when video is playing
+                    * and video position has not changed last 10 seconds
+                    */
+                    if(videoview.isPlaying() == true && position == videoview.getCurrentPosition())
+
+                        {
+                            DialogFragment videoNotAvailableDialog = new VideoNotAvailableDialogFragment();
+                            //makes sure, that the dialog is NOT closed after the user clicks on the back button in the navigation bar
+                            videoNotAvailableDialog.setCancelable(false);
+                            videoNotAvailableDialog.show(getFragmentManager(), "NoVideo");
+                            break;
+                        }
+                        else
+                        {
+                            position = videoview.getCurrentPosition();
+                        }
+                    //}
+                }
+
+                killBufferCheckThread();
+            }
+        });
+        bufferCheck.start();
+    }
+
 
     //Notification- und Navigation-Leiste werden ausgeblendet. Die Activity geht somit quasi in einen Vollbild-Modus
     //Wischt der User aus Notification- bzw. Navigation-Leiste, so werden diese für einen kurzen Moment wieder eingeblendet
@@ -265,5 +330,7 @@ public class LiveStreamActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
     }*/
+
+
 }
 
