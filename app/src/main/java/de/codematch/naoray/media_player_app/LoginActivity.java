@@ -279,8 +279,8 @@ public class LoginActivity extends AppCompatActivity {
         private final String mPassword;
         //Boolean variable for checking if a server response arrived
         public boolean responsebool = false;
-        private String encryptMail;
-        private String encryptPassword;
+        private String encryptedEmail;
+        private String encryptedPassword;
         private Boolean verified = false;
 
         UserLoginTask(String email, String password) {
@@ -307,8 +307,8 @@ public class LoginActivity extends AppCompatActivity {
 
             // encrypt e-mail and password
             try {
-                encryptMail = AES.encrypt(mEmail);
-                encryptPassword = AES.encrypt(mPassword);
+                encryptedEmail = AES.encrypt(mEmail);
+                encryptedPassword = AES.encrypt(mPassword);
             } catch (GeneralSecurityException e) {
                 e.printStackTrace();
             } catch (UnsupportedEncodingException e) {
@@ -320,8 +320,8 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     // Volley-Code
                     HashMap<String, String> parameters = new HashMap<>();
-                    parameters.put("Username", encryptMail);
-                    parameters.put("pw", encryptPassword);
+                    parameters.put("Username", encryptedEmail);
+                    parameters.put("pw", encryptedPassword);
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                     String url = "http://vu2223.bernd.php-friends.de/regiotainment/";
 
@@ -377,15 +377,15 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (verified) {
-                    db.handleUserInput(encryptMail, encryptPassword);
+                    db.handleUserInput(encryptedEmail, encryptedPassword);
                     //if the sever does not respond in the expected time, the app checks the user data with the local database
                 } else if (!responsebool) {
-                    verified = db.verifyPassword(encryptMail, encryptPassword);
+                    verified = db.verifyPassword(encryptedEmail, encryptedPassword);
                 }
             }
             //no internetConnection exists -> use local database to verify e-mail and password
             else {
-                verified = db.verifyPassword(encryptMail, encryptPassword);
+                verified = db.verifyPassword(encryptedEmail, encryptedPassword);
                 // This makes sure that the loading animation is shown for a certain time
                 try {
                     Thread.sleep(1500);
