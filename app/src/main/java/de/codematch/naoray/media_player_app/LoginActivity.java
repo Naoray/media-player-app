@@ -323,7 +323,7 @@ public class LoginActivity extends AppCompatActivity {
                     parameters.put("Username", encryptedEmail);
                     parameters.put("pw", encryptedPassword);
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                    String url = "http://vu2223.bernd.php-friends.de/regiotainment/";
+                    String url = ""; // an url for database connection should be inserted
 
 
                     LoginRequester jsObjRequest = new LoginRequester(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
